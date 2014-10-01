@@ -1,0 +1,56 @@
+题目1：
+MapReduce中排序发生在哪几个阶段？这些排序是否可以避免，为什么？
+题目2：
+编写MapReduce作业时，如何做到在Reduce阶段，先对key排序，再对value排序？
+题目3：
+如何使用MapReduce实现两表join，可考虑以下几种情况：（1）一个表大，一个表小（可放到内存中） （2）两个表均是大表
+题目4：
+如何使用MapReduce实现全排序（即数据全局key有序）？ 你给出的算法可能要求仅启动一个Reduce Task，那么如何对算法改进，可以同时启动多个Reduce Task提高排序效率。
+题目5：
+如何对MapReduce作业进行调优（可从参数配置、程序编写等角度说明）
+题目6：
+电话面试，请描述MapReduce的设计架构。
+题目7：
+如果对MapReduce系统进行调优（可从操作系统配置、参数配置等角度说明）
+题目8：
+Hadoop MapReduce中资源管理模型是怎样的，有什么缺点，如何改进？
+题目9：
+解释什么是Capacity Scheduler？
+题目10：
+Hadoop 2.0中YARN是什么？（最近部分明年毕业的同学找工作过程遇到了关于YARN的笔试题，比如今天的EMC笔试题）
+题目11：
+YARN和MapReduce有什么关系？
+
+答案：
+题目1:
+MapReduce中排序发生在哪几个阶段？这些排序是否可以避免，为什么？
+答：一个MapReduce作业由Map阶段和Reduce阶段两部分组成，这两个阶段会对数据排序，从这个意义上说，MapReduce框架本质上就是一个Distributed Sort。在Map阶段，Map Task会在本地磁盘输出一个按照key排序（采用的是快速排序）的文件（中间可能产生多个文件，但最终会合并成一个），在Reduce阶段，每个Reduce Task会对收到的数据排序，这样，数据便按照key分成了若干组，之后以组为单位交给reduce()处理。很多人的误解在Map阶段，以为如果不使用Combiner便不会排序，这是错误的，不管你用不用Combiner，Map Task均会对产生的数据进行排序（如果没有Reduce Task，则不会排序，实际上Map阶段的排序就是为了减轻Reduce端排序负载）。由于这些排序是MapReduce系统自动完成的，用户无法控制，因此，在hadoop 1.x中无法避免，也不可以关闭，但hadoop 2.x是可以关闭的。
+题目2：
+编写MapReduce作业时，如何做到在Reduce阶段，先对key排序，再对value排序？
+答：该问题通常称为“二次排序”，最常用的方法是将value放到key中，实现一个组合Key，然后自定义key排序规则（为key实现一个WritableComparable）。
+题目3：如何使用MapReduce实现两表join，可考虑以下几种情况：（1）一个表大，一个表小（可放到内存中） （2）两个表均是大表
+答：第一种情况比较简单，只需将小表放到DistributedCache中即可；第二种情况常用的方法有：map-side join（要求输入数据有序，通常用户HBase中的数据表连接），reduce-side join，semi join（半连接）等，网上介绍这方面的资料很多，大家可自己找些资料。
+题目4：
+如何使用MapReduce实现全排序（即数据整体key有序）？ 你给出的算法可能要求仅启动一个Reduce Task，那么如何对算法改进，可以同时启动多个Reduce Task提高排序效率。
+答：直接可以想到的方法是“多个map task”+“一个reduce task”，其中各个map task对自己负责的数据进行排序，而唯一的reduce task则实现全局排序。这种方法最大的问题是reduce task只有一个，存在性能瓶颈。一种常见的优化方法是基于采用的排序方法，Hadoop自带的terasort例子便是这么实现的，有兴趣的读者可阅读我的这篇文章（直接在google中搜索文章标题即可找到）：“Hadoop中TeraSort算法分析”。
+题目5：
+如何对MapReduce作业进行调优（可从参数配置、程序编写等角度说明）
+答：参考《Hadoop技术内幕：深入解析MapReduce架构设计与实现原理》中“9.3从用户角度进行调优”。
+题目6：
+电话面试，请描述MapReduce的设计架构。
+略
+题目7：
+如果对MapReduce系统进行调优（可从操作系统配置、参数配置等角度说明）
+答：参考Hadoop技术内幕：深入解析MapReduce架构设计与实现原理》中“9.2　从管理员角度进行调优”。
+题目8：
+Hadoop MapReduce中资源管理模型是怎样的，有什么缺点，如何改进？
+答：MapReduce将资源划分成map slot和reduce slot，其中map slot供map task使用，reduce slot供reduce slot使用，这种模型存在以下几个问题：（1）slot之间不能共享，导致资源利用率低（比如map slot空闲而reduce slot紧缺时，Reduce Task不能使用空闲的map slot），（2）slot数目静态配置，不能动态修改 （3）slot这种划分资源方式粒度过大，导致集群资源利用情况不好精细化控制，比如一个map task可能无法充分利用一个map slot对应的资源。具体改进方法可参考《Hadoop技术内幕：深入解析MapReduce架构设计与实现原理》中“6.7.4　Hadoop资源管理优化”
+题目9：
+解释什么是Capacity Scheduler？
+答：Capacity Scheduler是Hadoop自带的一个多租户多队列作业调度器，它按照队列组织作业和用户，以达到多用户共享集群的目的。
+题目10：
+Hadoop 2.0中YARN是什么？（最近部分明年毕业的同学找工作过程遇到了关于YARN的笔试题，比如今天的EMC笔试题）
+答：YARN是Yet Another Resource Negotiator的简称，是Hadoop 2.0新引入的资源管理系统，负责集群中资源的统一管理和调度，它允许用户在其上运行各类计算框架，而不仅仅限于MapReduce一种。
+题目11：
+YARN和MapReduce有什么关系？
+答：MapReduce是一种两阶段计算框架，它由资源管理和任务调度两部分组成，其中资源管理部分是通用的模块，不仅MapReduce需要，其他计算框架，比如Spark等也需要这种模块，于是Hadoop 2.0将资源管理部分独立出来，创建了YARN这一分支。YARN出现后，多个计算框架运行在一个集群中共享资源成为可能。YARN可看做一个“云操作系统”，而MapReduce可看做运行在该操作系统上的“应用程序”。
