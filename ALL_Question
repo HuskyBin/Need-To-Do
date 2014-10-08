@@ -1,0 +1,1835 @@
+1. 在linked list中找倒数第N个结点
+
+2. 倒转linked list
+
+3. 二叉树的结点有指向parent的指针，求最近公共祖先
+
+4. 给一个数组,如何打印该数组成员构成集合的全部子集合.
+
+5. 有两个字符串，一个是text,一个是command, Command有四种：
+
+   ‘+’: 在text中前进一位
+
+   ‘-’: 在text中后退一位
+
+   ‘a’: 在当前位置插入一个字符，字符由command中的后一位决定
+‘d’: 删除当前字符
+
+   实现函数Process(string& text, string& command, string& result);
+Coding题，大致要点:
+
+扫描一遍command,看看有多少加字符的command,再建一个满足大小要求的临时数组，copy text
+在临时数组上进行操作，注意插入和删除的复杂度都是O(N)
+6. 实现一个LRU的cache
+
+    数据结构：
+
+      插入新cache的算法:
+
+如果找到了，用splice函数将刚刚被访问的CacheEntry移到队首。
+关于多线程，一般来说reader/writer lock不适用，因为reader也会更改LRU cache. 一种解决的办法是让每个线程拥有自己的cache.
+
+7. 两个排序的数组，求它们的交集
+
+8. 在二叉树中添加额外的两个指针（树可能非满），遍历整棵树并将同一层的结点用这两个额外指针连接起来
+
+9. 用一个给定的值partition一个数组，注意这个值不一定在数组中出现
+
+10. 用数组实现一个queue, 考虑以下一些内容：
+
+a)  实现固定size
+
+b)  实现可变size  每次size不够用时，建一个更大的array并复制原有数据
+
+c)  与linked list的实现相比，有什么好处和坏处？保证了操作恒定为O(1),但是内存有浪费，且不连续
+
+d)  如何处理thread safe
+
+在queue被更改的情况下，使用locker
+Lock-free code,
+11. 洗牌算法
+
+    For i = 0 to n-1,
+
+生成一个i到n-1之间的随机数j，将v[i]与v[j]交换
+
+ 
+
+12. [Microsoft] 对stack上的元素排序，可以使用的方法有pop(), top(), push(), isEmpty(), isFull().
+
+13. [Microsoft] 有一个M*N行的矩阵，如果第(i, j)个元素是0，则把i行和j列都设为零，注意尽量少使用额外空间
+
+分成如下几步:
+
+扫描第M行和第N列，看(M,N)是否需要设为零
+扫描每行和每列，在第M行和第N列记录对应的列和行的结果
+扫描第M行和第N列，将其所对应的列和行记为零
+处理(M,N)
+ 
+
+14. [Microsoft] 一个二维空间第一象限有很多点，怎么找出最外围的那些点？
+
+Graham扫描算法：
+
+选出y最小的起始点p0
+将其它所有点按相对于p0的极角排序，记为p1,p2,…pN-1
+将p0, p1, p2 push到栈
+对余下的所有点：
+a)   Px为栈顶的下一个点，Py为栈顶，当前点为Pi
+
+b)   如果Py->Pi, 相对于Px->Py向右
+
+i.      Pop栈
+
+ii.      Push Pi到栈
+
+算法复杂为O(NlogN) (第二步的排序)
+
+ 
+
+15. [Google] 返回一组字符串的最长公共前缀，如 “abc”, “abcdef”, “abcd”, 则返回”abc”
+
+16. [Microsft] 给出平面上第一象限内landscape的轮廓，也就是一些列的(x,y)坐标, x=0,1,…,N
+，以及Y轴上光源坐标(0,H)。问这N+1个点钟那些被照亮那些是阴影。(叉乘)
+
+一一计算光源到(x,y)的角度，再与左边的角度对比即可知是否被遮挡，复杂度O(N)
+
+17. [Microsoft] 一个linked list，每个节点除了正常next指针外，还有一个extra指针，这个指针可以指向链表中的任一节点，不同的extra指针可以指向同一个节点，extra指针也可能
+形成loop。问怎么复制这个结构。
+
+18. [Microsoft] 怎么组织字典，使得在解cross puzzle时可以很快得到满足条件的所有单词(比如
+所有第二个字母是o，第5个是H的单词）。不过这题算brain storm，不用写code.
+
+    按单词的长度不同，构造多个container
+
+对某一组长度相同的单词，构造多个index, 从(2,o), (5, H) 映射到单词（id）, 每一个collection保持有序，可以加快merge的速度
+
+ 
+
+19. [Google] 如何设计binary tree和hash table的iterator
+
+Binary Tree Iterator:
+
+假设是中序遍历的话，在iterator中保存一个遍历的状态(parent node stack).
+
+Hash Table Iterator:
+
+取决于hash table的数据结构，一般直接按array或者bucket顺序遍历就可以了。
+
+ 
+
+20. [Google] 设计一个class，类似于stack, 但可以是O(1)时间内返回min()
+
+给stack加一个只用来保存当前最小值的stack, Push时，如果当前值比minStack栈顶小，则也push到MinStack, Pop时，如果minStack栈顶与当前pop元素一样大，则也pop minStack
+
+21. [Google] 比较两个binary tree是不是完全一致
+
+递归比较 if (tree1->value == tree2->value) && is_equal(tree1->left, tree2->left) && is_equal(tree1->right, tree2->right)
+
+22. [Google] 一个整数数组里怎么同时找最大和最小的数，尽量优化比较次数
+
+    考虑二个数a,b， a与b先比，大的与当前最大比，小的与当前最小比。两个数共需要比较三次。
+
+ 
+
+23. [Google] 在一个循环有序的数组里查找一个数
+
+    24. [Google] 给一个array和一个target value, 检查array里是否存在两个数之和为target
+
+    两种做法:
+
+先对数组排序，然后从两头开始scan
+建一个hash table, 然后scan 数组，去查找，注意要处理正好有一个数等于target的一半的情况
+25. [Google] 给一个文本， 然后给出几个关键词及他们所出现的位置，比如
+this: 1, 16, 55….
+is: 5, 33, 77…
+要求找出最短的一段文章使其具备给出的关键词。
+
+    大致算法：按位置往后找，直到所有的词都出现，然后再尝试把左边的位置缩减。如此直到找到更短的区间。
+
+见后面的find_min_window的程序，这里需要处理inverted index
+
+ 
+
+26. [Google] 给出一棵tree, 该tree没有任何特征， 即可以有多个子节点， 父节点和左右子节点也
+没有大小关系。但每个节点的值不相等。现给出几个值， 如(12， 24) 请找出从根节点到值为12 和24的节点的subtree.
+
+27. [Google] 给一个array, 再给一个sh值， 设计函数将数组内的所有元素向右偏移sh个位置(将数
+组看成一个圈)。
+
+见Programming Pearls, 先把[a,c] reverse, 再reverse[a,b],[b,c]
+
+28. [Microsoft] 删除数组中的重复元素
+
+略。。。
+
+ 
+
+29. [Microsoft] 按如下规则转化数字的字符串
+(integers that appear >=1 times)
+(integers that appear >=2 times)
+…
+(integers that appear >=n times)
+并保持字符原来的顺序
+例如: 12223314->12342312
+
+略。。。
+
+30. [Microsoft] 检查一个表达式中的括号是否合法，括号包括 {, [, (, ), ], }
+
+简单的栈的应用
+
+31. [Microsoft] 如何高效地用堆栈模拟队列.
+
+使用两个stack, s1和s2
+
+Push时，push到s1
+
+Pop时，若s2非空，则从s2中pop, 若s2为空，则将s1的全部元素pop到s2中，再从s2中pop
+
+分摊复杂度为O(1)
+
+ 
+
+32. [Microsoft] 打印中两个整数范围内的所有素数，例如：(12, 15) ->13
+
+1. 单个验证是否为素数
+
+2. 筛法
+
+ 
+
+33. [Google] 求直方图的最大内接矩形
+
+    TODO
+
+ 
+
+34. [Google] NxN行列有序的矩阵查找一个数
+
+两种方法，1从角上开始search, 2， Divide and Conquer
+
+分治法可以用来解决另外一个问题，在行列有序的二维数组中，大于/小于0的元素有多少个？
+
+35. [Google] 将MxN的矩阵转秩,要求O(1)的空间复杂度.参考群论中cyclic group,group
+generator
+
+TO LEARN
+
+ 
+
+36. Inplace perfect shuffle
+
+TO LEARN
+
+ 
+
+37. 有一个矩阵A，找出这个矩阵中所有的A(i,j)，它所在的行和列都是0.
+
+依次扫描？略。。。
+
+ 
+
+38. 有一个变长的characters system, 每个character所占的bytes数不固定。每个
+character的最后一个byte的值是0. 一个字符串由这些变长的characters组成。字符串
+的最后两个bytes是0. 要求反转这个字符串。额外空间使用越少越好。
+
+先将整个字符串反转，再按个字符反转
+
+ 
+
+39. 有n张扑克牌，从中随机选出几张。要求找出所有的选法，使得所选扑克牌的点数的
+和是s. 不用recursion,代码行数越少越好。
+
+TODO 如何不用recursion?
+
+ 
+
+40. [Google] 有1G内存和4 billion个整数，输出一个不在这些整数内的数， 如果只有10MB内存呢？
+
+1. 1G内存有1024*1024*1024*8个位，扫描一遍记位即可
+
+2. 如果内存不够，可以依次处理10*1024*1024*8个数，需要扫描4*1024/10/8大概50趟
+
+ 
+
+41. [Google] Merge N个sorted array
+
+   
+
+42. [Google] 给一个大小为N的数组，输出所有大小为K的子集（K<=N）
+
+    TODO
+
+ 
+
+43. [Microsoft] 已知 bst 和两个数, 求在此范围内的节点数。递归和非递归
+
+中序遍历，加一个collection作为参数即可
+
+ 
+
+44. [Microsoft] 已知 bst 和一个数, 找到next larger number, O(logn)时间
+
+    TO CODE
+
+ 
+
+45. N*N的正方形内有黑白两色，求四边都是黑色的最大的子正方形
+
+    TO LEARN
+
+ 
+
+46. 平面上有一组点集，求穿过点最多的直线
+
+计算两两点够成的直线方程x+By+C=0， 找出出现次数最多的方程即可
+
+ 
+
+47. 实现itoa
+
+ 
+
+48. 给一个2D 的 matrix，按 spiral order打印
+
+   
+
+ 
+
+49. [Google] 一个字符串，复制所有的’x’, 再删除所有的’z’, 其它不变
+
+略。。。
+
+ 
+
+50. [Google] 实现memcpy(void *src, int size, void *dest);
+判断参数合法性，判断src,dest是否相等， 是否 overlapping 时会出错，
+
+    注意memcpy和memmove的区别
+
+ 
+
+51. [Google] 大小为N的数组，给出一个大小为K的随机子集
+
+作一个shuffle,然后选取前K个（因此shuffle时只要进行到第K个即可）
+
+ 
+
+52. [Microsoft]判断这四个点是不是构成了一个矩形
+
+    TODO
+
+ 
+
+53. 实现 char* strtok(char* str, const char* delimeter)
+
+略。。。应该需要用到static变量
+
+ 
+
+54. 美国的coin设计为1，5，10，25，任意给定一个change，用greedy algorithm可以算出最少所需要的coins，如何判断一组coin是否可以用greedy algorithm?
+
+TO LEARN
+
+找硬币的DP程序:
+
+ 
+
+55. 给定5张牌，写一个函数判断是否有两对
+
+略。。。
+
+56. 在BST中删除一个节点
+
+   
+
+ 
+
+57. [Microsoft] 给你一个地址/a/b/../c/./d.txt, 让你把它normalize。
+
+    58. [Microsoft] 给出一个BST和一个值，求所有和等于这个值的Path.
+
+    59. [Microsoft] 按层打印树
+
+    略
+
+ 
+
+60. [Google] 五个非常大的数组求交集（考虑时间，空间，I/O）
+
+    略
+
+61. [Google] 两个排序好的数组，求和最小的M个pair, 比如 A={1, 2, 4, 5, 6}, B={3, 5, 7, 9}
+m=3那么Results就是(1, 3),(2, 3),(1, 5)
+
+    这个结构形成了一个行列有序的矩阵，这个题就类似于在行列有序的矩阵中找第k个元素。
+
+    结论是:
+
+对于一个n×m(n≤m)的矩阵，若每行和每列都是递增的，则可以在O(nlog2m/n)找到第k大的数。论文题目为“Generalized Selection and Ranking: Sorted Matrices”
+
+如果是查中位数：
+
+    先找出每一行（列）的中位数，再找出中位数的中位数，这样可以去掉接近一半的数，再在剩下的数里找中位数即可，复杂度O(N(logN)^2)
+
+ 
+
+62. [Microsoft] 一个数组，有大小写字母和数字，一次编历，大写字母在一起， 小写字母在一起，数字在一起.
+
+    见138. Dutch National Flag Problem (DNFP)
+
+ 
+
+63. [Google] 1. 给定一个树和任意2个nodes，找出来最小的subtree包含这2个nodes 第26题
+2. 写BFS算法打印subtree的nodes 等价于分层访问树
+3. 如果把树变成了graph（可能有loop），怎么改刚写的BFS 需要标记已经访问过的点
+
+   
+
+64. 实现next_permutation
+
+    算法：
+
+1.  从后往前找，找到第一个x1,使a[x1]<a[x1+1]
+2.  从后往前找，找到第一个x2,使a[x2]>a[x1]
+3.  交换a[x1],a[x2], 并且反置a[x1+1 … end]
+ 
+
+65. 最长上升子序列
+
+    66. 给一个single linked list， 里面有true和false两类的node，写一个程序把
+true node 和false node分类，并且中间生成一个新的node把两类分开。
+
+    将true和false两类node接到两个不同的list,最后再合并即可
+
+ 
+
+67. 1 billion query里选出时间最近5分钟内最frequent的1000个query，one pass
+
+    精确解：选出所有5分钟内的query,count每个query的个数，同时维护一个最大堆，最后得到查询
+
+    扩展：如果query的数量非常大，则可以在一个个time windows里面做一些sample, 最后把这五分钟内的sample结果合并起来
+
+ 
+
+68. 两个排序数组找共同中值。
+
+    69. 实现strstr(str1, str2)
+
+   
+
+70. 给定一个排好序的linked list，删除其中所有的重复元素。比如给定1->2->3->3->
+4->4->5，返回1->2->5。给定1->1->1->2->3，返回2->3
+
+   
+
+71. 返回给定字符串的第一个不符合字母顺序的index, 比如abcdaf就需要返回第二个a的index，比如aZe就返回e的index
+
+    依次扫描即可。。。
+
+ 
+
+72. 检查sudoku的输入是valid，允许solution是不完全的
+
+    略
+
+ 
+
+73. 实现 wildcast string matching.
+
+    74. 给你一本dictionary，任意给你七个letters，让你找出包含这七个字母的、最长的单词。条件：可以pre-processing，这样每次给你不同的letters时，可以very efficient
+
+将单词按长度从长到短编号
+
+对每一个字母，建一个collection，按编号排序。
+
+对给出的七个字母，找到它们的collection中的第一个共同的字母。
+
+ 
+
+75. 表达式求值
+
+    76. 两个string, 给出它们的两个substring, 定义它们的距离为distance=\sum_i|s1[i]-s2[i]|， 怎么找距离最大的两个substring?
+
+    穷举。。。 有没有更好的办法？
+
+ 
+
+77 N*N的0/1矩阵，找出最大的全0矩阵
+
+最大直方图的应用， O(N^3)时间复杂度
+
+ 
+
+78. 将一个linked list按不同元素的值分组
+
+    用多个head放不同元素的组，最后合并
+
+ 
+
+79. serialize and re-construct binary tree.
+
+    按pre-order遍历，写入结点，包括NULL的子结点
+
+    Re-construct的时候，读入结点，构建node,再递归构建child,(当该Node不为空)
+
+ 
+
+80. 手机上的电话号码提示, 用prefix tree
+
+    CODE prefix tree
+
+ 
+
+81. [Facebook] 给定一个数组，删除最少的元素使得剩下的元素有序
+
+    等价于找最长上升（下降）子序列，见65题
+
+82. [Facebook] BST中找中间节点
+
+    中序遍历一遍放到数组中，最后拿中间数
+
+83. [Facebook] implement char *remove_badchars(char string[], char bad_chars[]) in place。
+
+    将bad_chars放到hash中查询，用两个指针来remove bad char, code略。。。
+
+ 
+
+84. [Facebook] implement adding two unsigned numbers without using “+”
+
+    85. [Facebook] How to implement a smart_pointer
+
+    TO LEARN
+
+ 
+
+86. [Facebook] implement sqrt
+
+    87. [Facebook] implement reader/writer lock
+
+    TO LEARN
+
+ 
+
+88. given a word a and a word b, all are 6-letter. Also given a dictionary. Find a transformation from a to b, such that: (a) each time you can changeone letter; (b) all the changed word should appear in the dictionary
+
+    图的search问题，见crack the interview. 略…
+
+ 
+
+89. 给定一个硬币集合{10,5,2,1},给定一个input amount，找出所有的硬币组合其sum可以等于这个数额，硬币可以被重复使用，就是说amount = 4, 集合可以是{2,2}.
+
+    90. 集合的intersection, union
+
+    TO LEARN
+
+91. Given an int n, print all the numbers which are less than n and in the following pattern: 1,4,5,9,14… Write a recursive program.
+
+    看不懂…
+
+ 
+
+92. How to sort a large collection of string?
+
+    因为string的比较开销比较大，所以可以考虑用radix sort. 见138题， America flag sort问题
+
+ 
+
+93. How to serialize a very sparse tree?
+
+    保存parent->child关系
+
+ 
+
+94. Given an arbitrarily long string, design an algorithm to find the longest repetitive substring. For example, the longest repetitive substring of “abcabcabc” is “abcabc”.
+
+    TO LEARN. Suffix tree的应用
+
+95. reverse a link list within each k blocks
+
+    96. BST，排序双链表互相转换
+
+    CODE
+
+ 
+
+97. 字符表格找单词，比如下面的3*3字符表格
+1  2  3
+4  5  6
+7  8  9
+每一个位置都是随机生成的char,给你一个字典然后找到表格里面所有可能的单词.
+单词的定义是任意个连续字符组合,一个位置用过之后就不能再用.
+
+回溯， 略。。。
+
+ 
+
+98. 给一个string，输出所有由这个sting中字符组成的所有可能strings。然后，如果有重复的字符怎么办。如果给你一个string, 和输出string长度，找出由这个sting中字符组成的所有可能string
+
+生成子集的问题，略
+
+99. 给一个log 文件，找最长session。session定义：同一个userid，两log间隔时间小于一小时
+
+    不是很理解，用map<userid, list<time>> 来记录用户的登录时间，然后再扫描？
+
+ 
+
+100. 不用乘法实现两数相乘 m*n， O(lgn)
+
+    101. 一个返回所有n比特格雷码的函数vector<int> getGrayCode(n) 比如 getGrayCode(2)， 应该返回{0,1,3,2}
+
+    略。。。
+
+ 
+
+102. 两个sorted array A，B， 问能否从A，B中各取且只取一个数，是他们的和为x
+
+从两头scan, 略
+
+103. 一个数组有N个元素，都大于0.将数组分成K段，求使最大的每段数组和的最小值
+
+初始条件: f(x,y,1) = a[x] + … + a[y]
+
+递推： f(1, n, k) = min(1<=i<=n+1-k)max{f(1,i,1),f(i+1,n,k-1)}
+
+    该问题的一个变体是: 有一个包括N个整数的数组,求k个数，使得这k个数排序后，相邻两个数的差的最小值最大。
+
+先将数组排序
+
+初始条件: f(x,y,2) = a[y] – a[x]
+
+递推: f（1,n,k） = max(2<=i<=n+2-k)min(f(1,i,2), f(i,n,k-1))
+
+ 
+
+104. 判断某个点是否在多边形的内部。按逆时针方向依次给出多边形的所有顶点。
+
+    图形学，考虑依次形成的所有夹角的和，如果在内为2pi, 否则为0
+
+ 
+
+105. 判断一个set里是否有四个数的和等于一个target number.
+    预先计算所有两数之和，得到map<sum, vector<pair<index1,index2>>>
+
+然后再这个map中搜索有没有和为target number的pair(并且index不能重复)，时间和空间复杂度O(N^2).
+
+另外一种做法是当成子集合问集，按target number(T)做DP，复杂度O(NT)
+
+ 
+
+106. how to implement priority queue (describe) ?
+
+    用最大/最小堆来实现，堆的heapify操作
+
+107. 找到数组中的第二大的元素
+
+    108. 两个人（A，B）参与一个游戏，规则如下：
+1）一个随机的整数数列有偶数个数,a1,a2,…a2n
+2）A先从数列取数，但只能从两头取,a1 or a2n
+3)然后Ｂ取数，也是只能从剩下的两头取，依此类推，两个人轮流，都只能从两头取
+４）最后谁手里的数和最大赢。
+
+先拿的人有必胜策略，把所有的数按在奇数位和偶数位分成两组，则先拿的人可以选择拿到所有奇数位或者所有偶数位的数。
+用DP求最后能拿到的最大的和：
+设v[x,y]是当某人在数列剩下x到y位时，能拿到的最大值，n[x,y]表示需要拿的位置(x或者y)则
+
+初始化: v[x,x] = a[x], n[x,x] = x
+
+递推: v[x,y] = max(v[x] + (v[x+2,y]或者v[x+1,y-1], 由n[x-1,y]决定)，
+
+v[y] +（v[x,y-2]或者v[x+1,y-1]，由n[x,y-1]决定）)
+
+n[x,y]由上一步取v[x]还是取v[y]决定。
+
+ 
+
+109. 最大回文的详细解法
+
+    Suffix tree的应用， TO LEARN
+
+ 
+
+110. 假定有个graph，怎么找出不带circle的最长path
+
+    有向无环图可以用DP解，一般情形下是NP完全问题
+
+算法：
+
+algorithm dag-longest-path is
+
+    input:
+
+         Directed acyclic graph G
+
+    output:
+
+         Length of the longest path
+
+ 
+
+    length_to = array with |V(G)| elements of type int with default value 0
+
+ 
+
+    for each vertex v in topOrder(G) do
+
+        for each edge (v, w) in E(G) do
+
+            if length_to[w] <= length_to[v] + weight(G,(v,w)) then
+
+                length_to[w] = length_to[v] + weight(G, (v,w))
+
+ 
+
+    return max(length_to[v] for v in V(G))
+
+ 
+
+111. 关于外部排序
+
+一般做法：
+
+将输出数据分成K份，使得每一份都能放到内存中排序，然后将每一份排好序后写到文件
+从每一份排好序的数据中读一部分到buffer,对buffer中的数据进行K-way merge后写到最终的文件。（这里存在一个多路归并的开销，和反复读取文件的开销的权衡）
+如何改进性能：
+a)   使用多块磁盘同时进行读/写
+
+b)   使用多线程提高内存里的sort的性能
+
+c)   使用异步的IO使sort和磁盘读/写同时进行
+
+d)   多机的并行（map reduce ?）
+
+e)   如果key较大，则可以使用radix sort提高速度
+
+ 
+
+112. 正态随机
+
+    http://en.wikipedia.org/wiki/Normal_distribution#Generating_values_from_normal_distribution
+
+根据中心极限定义，一种简单的做法是,生成2N个(0,1)之间的随机数，然后将它们的和减去N，得到一个近似正态分布的数
+
+ 
+
+113. 实现linkedIn里查找两个人之间connection的功能。（如果每人有100个熟人，假设任何两个人之间只隔6个人，需要space 100^6，内存放不下。所以改用同时从两边bfs, 需要space 2*100^3）
+
+    略。。。
+
+ 
+
+114. 两个Sorted Array，找K smallest element, array1 长度M，array2长度N，要求O（logM+logN)
+
+    见68题
+
+ 
+
+115. [Facebook] Given a string and a dictionary that maps a character to several
+characters, print all combination and tell the complexity.
+i.e., string = “face”, f=> f, @, 4, h     a=> a, c, e
+print: face, @ace, 4ace, …..
+
+    116. Merge sort linked list.
+
+    略。。。
+
+    详见http://www.chiark.greenend.org.uk/~sgtatham/algorithms/listsort.html
+
+    Merge sort linked list的特点：不需要额外空间，时间复杂度O(NlogN),并且是stable的
+
+ 
+
+117. example:
+char *words[] = {“foo”, “bar”, “baz”, NULL};
+setup(words);
+1) First step:
+isMember(“foo”) -> true
+isMember(“garply”) -> false
+
+2) Second step:
+isMember(“f.o”) -> true
+isMember(“..”) -> false
+*/
+
+1. 用map即可。。。
+
+2. 需要对words里面的每一个elements依次匹配。为了加速，可以预先对words构建一棵字典树。
+
+ 
+
+118. Given an integer, print the next smallest and next largest number that has the same number of 1 bits in their binary representation.
+
+xxx011100 -> xxx100011
+
+从右往左扫，将第一个在1后面出现的0置1，xxx011100 -> xxx111100
+将这个1后面的1置0, xxx111100 -> xxx101100
+将剩下的1放到最右边，xxx101100 -> 100011
+CODE略
+
+ 
+
+119. 一个有n个整数数列，如果有符合下面条件，就返回1，如果没有返回0.
+
+要求：a[i]+a[j]>a[k]; a[i]+a[k]>a[j]; a[j]+a[k]>a[i]
+
+先排序，再比较相邻的三个数即可
+
+ 
+
+120 很长很长的string/file, 要我找出中间重复次数最多的character, character set
+可能是任何char set, unicode. (map reduce, multi-thread)
+
+    TO LEARN， 写一下用map reduce 怎么做
+
+121. [Apple] You are given a deck containing n cards.  While holding the deck:
+1. Take the top card off the deck and set it on the table
+2. Take the next card off the top and put it on the bottom of the deck in your hand.
+3. Continue steps 1 and 2 until all cards are on the table.  This is around.
+4. Pick up the deck from the table and repeat steps 1-3 until the deck is in the original order.
+Write a program to determine how many rounds it will take to put a deck backinto the original order.  This will involve creating a data structure to represent the order of the cards. This program should be written in Python.  It should take a number of cards
+in the deck as a command line argument and write the result to stdout.
+
+    略。。。
+
+ 
+
+122. Suppose there is a binary tree having millions of nodes and by mistake one node has two indegree (i.e. There becomes a cycle/loop in that tree. Tou have to find that node which is having two indegree) Constraint is no extra memory can be used and tree representation is in Linked list format.
+
+？？？可能吗？没有额外memory, 否则做个DFS/BFS即可
+
+ 
+
+123. Print the nodes on the exterior of a binary tree in a anti-clockwise order, i.e., nodes on left edge, then leaf nodes, then nodes on right edge.
+
+    先按层遍历，将每一层的开始放到left edge, 结尾放到right edge. 再中序遍历打出所有的leaf node（这里取决于leaf node的定义）， CODE取自：
+
+http://www.leetcode.com/2010/10/print-edge-nodes-boundary-of-binary.html
+
+124. 已知整数 m ，其二进制形式有 k 位为1，打印出 0≤x≤m 所有满足以下条件的 x
+x^(m-x) = m，其中^是异或运算符。在 0≤m<2^n 范围内对每一个 m ，打印出所有的 x ，并求总复杂度。
+
+TO LEARN， 像数学题
+
+125. You can win three kinds of basketball points, 1 point, 2 points, and 3 points. Given a total score X, print out all the combination to compose X. (recursion/ Dp)
+
+略。。。
+
+ 
+
+126. 有n个job，分配给3个打印机，求所有任务完成的最短时间。例如：3，5，4每个打印机占1个job，最短时间是5. 15，7，8，10， 4, 15给1号打印机，7，8给2号打印机，10，4给3号打印机，最短时间是15.
+
+http://en.wikipedia.org/wiki/Partition_problem
+
+    见133题
+
+127. 设计一个算法，判断一个integer n是不是可以表示成k(k>=2)个连续正整数的和
+
+    假设所要分解的数为x ，分解成n个数，那么我们可以这样表示：
+
+x=m+(m+1)+(m+2)+……….+(m+n-1)
+
+其中m为分解成的连续整数中最小的那一个，并且我们知道m大于等于1的正整数。易知：
+
+x=(2m+n-1)*n/2， 变换一下的m=（2*x/n-n+1)/2
+
+由m的范围我们知道（2*x/n-n+1)/2>=1 以上就是x和n的关系。给定一个n看是否x能分解成n个连续整数的和可以判断是否存在m，也就是转换成（2*x/n-n+1)是否是偶数。
+
+代码略
+
+128. how to serialize and deserialize a n ary tree?
+
+见79题
+
+129. 如何刷屏最快
+
+    G(n) = max{G(n-1)+1, g(n-k)*(k-2)}
+
+130. Given a sorted array with duplicates and a number, find the range in the form of (startIndex, endIndex) of that number. For example, given 0 2 3 3 3 10 10 and 3, return (2,4). Given the same array and 6, return (-1,-1).
+
+    Binary Search的扩展，见142题
+
+ 
+
+131. 有N个整数，M个bucket，每个bucket都可以装至少N个整数，一个bucket的value等于放入它的所有整数的和。现求解一种分配方法，使之 minimize(the max value of all buckets)
+
+NP完全问题，见：
+
+http://en.wikipedia.org/wiki/Job_shop_scheduling
+
+132. Given pairs of connected items ((A, B), (B, C), (C, D)…), find the root
+node of this tree.
+
+    找到入度为零的node即可
+
+133. There’s a book and each sentence consists of several words. How to find the minimal set of words which can used by the reader to understand half of total number of the sentences. Each sentence is readable if the reader knows all the words.
+
+TO LEARN， 有点类似于dancing links用到的满足问题
+
+ 
+
+134. [facebook]求一段时间内出现最多的ip address(es)
+
+    只能是搞几张aggregate表，按秒，分钟，小时等做为粒度。。。
+
+135. 两个文件里面存着行程安排，开始时间以及结束时间，设计算法找所有conflicts。
+
+    如果要找所有conflicts, 则复杂度为O(N^2)， 略。。。
+
+136. what’s the best data structure for storing and looking up a huge amount of url’s (presented in a prefix format) like these:
+com.google.www -> value1
+com.yahoo.finance -> value2
+com.yahoo.finance/stocks -> value3
+com.yahoo/finance -> value2
+1.2.3.4/node/123 -> value4
+….
+the requirements are:
+1.  it has to be compact (compression if necessary).
+2.  lookup time should be fast (constant would be ideal, but a few level of tree lookup is fine too).
+
+    有点类似于设计题，可以用一个优化过的prefix tree?
+
+ 
+
+137. Subset sum problem
+
+可以转换为背包问题
+
+   
+
+138. Dutch National Flag Problem (DNFP)
+
+http://www.iis.sinica.edu.tw/~scm/ncs/2010/10/dutch-national-fl
+
+    如果有多于三种元素，则称为America Flag Problem, 本质上是radix sort
+
+139. 一个单词的列表，要找出两个单词，它们没有相同的字母出现，而且长度乘积最大
+
+    难题， TO LEARN
+
+140. You are given N blocks of height 1…N. In how many ways can you arrange these blocks in a row such that when viewed from left you see only L blocks (rest are hidden by taller blocks) and when seen from right you see only R blocks? Example given N=3, L=2, R=1 there is only one arrangement {2, 1, 3} while for N=3, L=2, R=2 there are two ways {1, 3, 2} and {2, 3, 1}.
+
+    DP题，定义g(n,l,r)为题目的答案，而f(n,l)为n个block,从左边看到l个block,则递推公式为：
+
+g(n,l,r) = (1<=k<=n)sum(C(n-1,k-1)*f(k-1,l-1)*f(n-k,r-1))
+
+f(n,l) = (1<=k<=n)sum(C(n-1,k-1)*f(K-1,l-1)*(n-k)!)
+
+f(n,1) = (n-1)!
+
+F(n,n) = 1
+
+F(n,m) = 0 if n < m
+
+141. There is a binary tree(Not a BST) in which you are given three nodes x,y,z. Write a function which finds whether y lies in the path b/w x
+
+    如何定义in the path?…略。。。
+
+142. binary search的各种变种
+
+1）如果找不到元素，返回应该插入的位置
+
+2）如果数组允许有重复，寻找最小的那个i，使得arr[i] = v， （第一次出现的位置）
+
+3）如果数组允许有重复，寻找最大的那个i，使得arr[i] = v
+
+与2)类似
+4）如果数组允许有重复，寻找最小的那个i，使得arr[i] > v
+
+5）如果数组允许有重复，寻找最大的那个i，使得arr[i] < v
+
+与4)类似
+6）给2个有序数组，大小一致，如何求他们的median
+
+见第68题
+7）循环数组的二分查找
+
+    143. 怎样de-dup一个sorted array？
+
+可以直接线性扫描，也可以用binary search来优化（如果重复数比较多）
+
+   follow-up: 如果有一个big single file, many servers, how to use these servers to compute this problem? 要求尽量balance load
+
+    balance load,可以将big file分成比较小的块，每台机器完成若干块，根据计算情况进行调度。
+
+ 
+
+144. Given a number n, find the nearest palindrome of n just greater than n.
+
+算法：
+
+看左边一半的反是不是等于右边一半，如是，直接返回
+如果不是，看左边一半的反是不是大于右边一半，如果是，将右边一半改成左边一半的反，再返回
+否则，将左边一半的最后一位加1，再重复第二步（这次不用考虑大小）
+CODE
+
+ 
+
+145. 有一个不定长的char string (S1)，都是0,1组成；另外一个string （S2）, 也是0,1
+组成，可以认为是pattern,问S1中是否含有S2
+e.g S1 = 11100011 10101011 11111111 10000100 ( 4 bytes, ’11100011′ is 1 byte)
+S2 = 00111010
+the answer is ture, 1110″00111010″1011
+
+http://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_string_search_a
+
+    Rabin Karp算法 ？ 略。。。
+
+ 
+
+146. Write a function for a linked list that exchanges the positions of the nodes after the nodes referenced by two given pointers t and u. (assume t and u are either in the list or NULL).
+Example:
+1 2 4 3 6 8 5 7 9 10
+Exchange nodes after 2 and 3:
+1 2 6 3 4 8 5 7 9 10
+
+    简单题，略。。。
+
+ 
+
+147. Design a data structure for a text editor. Require better than linear for both line search and insert a new line.
+
+    Notepad++使用gap buffer, 即在一段buffer的中间留下空间，这样插入和删除操作都是O(1). 关于search，可以用Rabin karp算法。
+
+Rope 也是一种可以考虑的数据结构，见：
+
+http://en.wikipedia.org/wiki/Rope_%28computer_science%29
+
+ 
+
+148. Given an array of 0′s and 1′s. only, find the maximum length of the subarray such that the number of 0′s and 1′s in that subarray are equal.
+
+将所有的0换成-1，先计算累加和,cum[i] = a[0]+…+a[i], 则问题转化为：求cum[i]相同时的最大的index差。扫描计算即可，复杂度O(N)
+
+类似的问题有（利用累加和）：
+
+1.一个有正有负的数组中，求一个subarray使其和最接近0
+
+2.对数组进行add(l,r,v)操作，即对a[l]到a[r]的每一个元素加上v, 现有N个这种操作，怎么在O(N)时间内完成？
+
+ 
+
+149. 一个数组有很多key，已知所有key属于三个组，存在先后顺序，现在要求把所有key按照组排序，比如{1， 2， 3}， {4， 5}， {6， 7}，key之间不需要有顺序，只要不同组之间的元素在数组里满足组规定的顺序就行了(DNFP?)
+
+DNFP问题,见138题。
+
+ 
+
+150. 游戏算法，给定一个N*N格的板块，往上面放不规则的element。
+如何表达这个板块，用什么数据结构来表达element，这个element有可能是任何形状，like “—”，X”，“Y”，“田”（参考俄罗斯方块）
+如何判断这个element可以放在某个cell里面，放在cell的条件是这个element可以覆盖这个cell。（element之间不能重叠）
+象俄罗斯方块一样，这个element可以rotate四个角度，问如何判断rotate后可以放入。
+
+    TO LEARN, 俄罗斯方块?
+
+    这里的描述不是很清楚，如果是俄罗斯方块的话：（取自http://wintris.codeplex.com/）
+
+ 
+
+151. 给你一串数字，让你写程序，把操作符（可以是任意多个 + – * / %）放进各个数字之间，同时还可以在任意位置放进括号，让这个算术表达式的值等于一个给定的数字。比如：给你 5 3 8 9 = 6你的程序应该输出 5 * (4 + 8) % 9 = 6
+
+    CODE, 24点
+
+    152. 一道编程题，大意是给定一个类read1，它有一个函数read4096，每次调用它可以从文件中读取4K个字节，同时移动文件指针4K个位置（若文件中剩余数据不足4K，则读取剩下的所有数据），这个函数返回实际读取的字节数，int型；要求实现另一个类read2中的一个函数read，它有一个参数int n_byte，这个函数可以从文件中读取由n_byte指定的字节数，同样返回实际读取的字节数；然后又给出一个函数reset，它可以将文件指针重置到起始位置，要求实现read2中的另一个函数seek，有一个参数int pos
+，它可以将缓冲区的指针移动到第pos个字节的位置，返回实际指针移动到的位置。可以在read2中添加任意变量来完成这两个函数。
+
+    多次做read4096即可，为了加速，可以重用上次seek的结果
+
+ 
+
+153. 编程题问的是boggle游戏的问题：给定一个4*4的矩阵，每个位置有一个字母，可以从一个位置跳转到周围八个相邻位置中的任何一个，但不能跳到已经访问过的位置，要求找出所有的单词（假设给定了一个词典）。http://en.wikipedia.org/wiki/Boggle
+
+构造一个单词的prefix字典，然后再递归+回溯。。。
+
+ 
+
+154. Find median for k sorted arrays
+
+设k个sorted array为a1, a2, …, ak.
+
+先找出这k个sorted array的median, m1, m2, … mk.
+
+再找出这k个median的median: mm
+
+然后可以把所有比mm小的数和大的数都去掉，大致有一半
+
+然后再找剩下的数的median（递归），复杂度O(klogn)
+
+ 
+
+155. “Count and Say problem” Write a code to do following:
+n String to print
+0 1
+1 1 1
+2 2 1
+3 1 2 1 1
+…
+Base case: n = 0 print “1″
+for n = 1, look at previous string and write number of times a digit is seen and the digit itself. In this case, digit 1 is seen 1 time in a row… so print “1 1″
+for n = 2, digit 1 is seen two times in a row, so print “2 1″
+for n = 3, digit 2 is seen 1 time and then digit 1 is seen 1 so print “1 2 1 1″
+for n = 4, you will print “1 1 1 2 2 1″
+
+Consider the numbers as integers for simplicity. e.g. if previous string is “10 1″ then the next will be “1 10 1 1″ and the next one will be “1 1 1 10 2 1″ 10
+
+    CODE
+
+ 
+
+156. 给定一个数组， A[ 0 .... N ]作为输入数组。给定一个函数 f(i,j) ,这个函数以两个下表(i,j)为输入， 返回一个值。(这个函数是个blackbox, 唯一的信息就是输入两个整数返回一个值)。要求把数组A分为3份，使得 f(0,a) + f(a,b) + f(b,N)最小。
+LEARN
+
+ 
+
+157. 给n＊m的字符矩阵。然后给你一个字符串。问是否可以在矩阵中找到他的track。track是指从其
+中一个符出发，可以向四周走，可以重复，可以回头。
+e.g:
+a b
+c d
+string:  ‘bdba’ could be found but not for ‘bcd’.
+
+递归+回溯，也可以用DP优化
+
+ 
+
+158. Given three linked list of integers, all sorted. Find the first shared integer in all three. What is the time complexity?
+
+    略。。。
+
+ 
+
+159. Initially you have a 2×2 matrix, say zoom1:
+a b
+c d
+zooming it results in a 4×4 matrix (zoom2) as follows:
+aa ab ba bb
+ac ad bc bd
+ca cb da db
+cc cd dc dd
+zooming it again will result in an 8×8 matrix and so on..
+aaaa aaab abaa abab baba babb bbba bbbb
+aaac aaad abac abad babc babd bdba bdbb
+acaa acab adaa adab bcba bcbb bdba bdbb
+acac acad adac adad bcbc bcbd bdbc bdbd
+caca cacb cbca cbcb dada dadb dbda dbda
+cacc cacd cbcc cbcd dadc dadd dbdc dbdd
+ccca cccb cdca cdcb dcda dcdb ddda dddb
+cccc cccd cdcc cdcd dcdc dcdd dddc dddd
+The question is, given a sequence say abaaccda… we need to find out the
+sequence coming just left to it. For e.g. if the given sequence is “bd” for
+zoom2, the sequence coming just left to it is “bc”. For “cd” it’s “cc” etc.
+
+    CODE
+
+ 
+
+160. 如何在binary tree找一个path 从root 到leaf, 和是sum?
+2)  如何序列化一个binary tree到一个文件
+3)  如果有一个已经序列化的tree, 很大，要做1)的算法，怎么做，2）中如果有多个方法选择哪中序列化的方法比较好？
+4） 如果有1000w个已经序列化的小文件，对他们都要做3），如何提高性能，系统是5台机器
+
+    TO LEARN
+
+ 
+
+161. Programming: interval halving. Given a continuous function ‘f(x)’ and an interval on the x-axis from ‘start’ to ‘end’. It is know that ‘f(x)=0′ for exactly one value of ‘x’ between ‘start’ and ‘end’, and that ‘f(x)’ crosses the x-axis at this point. Write a program that repeatedly cuts in half the interval until the interval containing ‘f(x)=0′ is equal or less than ‘epsilon’ wide.
+
+    略。。。
+
+ 
+
+162 [Facebook] You are given N ranges of date offsets when N employees are present in an organization. Something like
+1-4 (i.e. employee will come on 1st, 2nd, 3rd and 4th day )
+2-6
+8-9
+..
+1-14
+You have to organize an event on minimum number of days such that each employee can attend the event at least twice. Write an algorithm (there is apparently an O(n) algorithm for this).
+
+    先按结束的时候排序，然后依次选取
+
+ 
+
+162. Search in skip list
+
+    TO LEARN
+
+ 
+
+163. 给定一个string，可以任意删除其中的char,以使的剩下的string成为palindrome,求最长的这样的palindrome。问有啥dp算法可以解？
+
+    与reverse求longest common subsequence
+
+ 
+
+164. 把一个有大写字母和小写字母的字符串变换成小写字母在前面大写字母在后面的字符串
+
+    略, partition
+
+ 
+
+165. 给很多date ranges,一个array, 每个date range有开始日期和结束日期，判断连续不连续
+
+    CODE
+
+ 
+
+166. 实现hash表
+
+    CODE
+
+ 
+
+167. 判断两二叉树全等（在可以交换左右子树的条件下），进一步给出需要多少次交换。
+
+    CODE
+
+ 
+
+168. 一个NxN矩阵，每个格子有一个整型数，从左上角到右下角找一条路径使得经过的格子数字和最大。只能向右和下移动。时间复杂度，如何优化。  
+
+    DP，复杂度O(N*N)
+
+ 
+
+169. 现在假设有一堆整数数组，有一个flip函数，接受一个数组下标i为参数，作用是将数组index 从0到i的元素反转。eg. 假设数组为5, 6, -1, 3, 2, 如果调用flip(3)，那么就将数组下标0, 1, 2, 3反转，数组变为 3, -1, 6, 5, 2。问：只使用flip函数(不能直接用swap或数组下标操作[]等对数组进行修改)，来对该数组排序。
+
+    IDEA：每做两次flip将当前最大的item放到位上
+
+    CODE
+
+ 
+
+170. 一个大小为N的数组，其中有N-1个不同的整数，范围从0-N, 问找出missing的那个
+整数。然后又扩展，问如果有k个missing，如果用O(1)space去找出来。
+
+    IDEA：将整数i放到数的第i位上
+
+    CODE
+
+ 
+
+171. Suppose we have a stream of web clicks. Now you need to provide at any time the count of web clicks during the past 1 minute.  To be specific, you get informed whenever a web click happens. You need to provide a function “getCount()” such that once called, return the count of clicks during the past 1 minute. The solution will be both constant in time and space.
+
+    用一个circular buffer来保存每一秒的click数，再维护一个total数即可。
+
+ 
+
+172. 一个有序序列，从某个地方rotate，求在rotate的位置，比如 1 3 5 0 0 0，那么rotate的位置是5，他后来只用了5行就写出来了，很nb，被bs了~~
+173. 二分图最大匹配
+
+    略。。。
+
+ 
+
+174. [Facebook] implement copy-on-write string class.
+
+    TODO
+
+ 
+
+175. 给你n个数字a1,a2…an，表示坐标上面（i，ai）个点，i＝1..n（i，ai）到（i，0）共n个线段，从中挑两条，和x轴一起构成一个容器，让容器能装的液体容量最大(容器不能倾斜)。
+
+    穷举？。。。
+
+ 
+
+176. Describe an algorithm that takes an unsorted array of axis‐aligned rectangles and
+returns any pair of rectangles that overlaps, if there is such a pair. Axis-aligned means that all the rectangle sides are either parallel or perpendicular to the x‐ and y‐axis. You can assume that each rectangle object has two variables in it: the x‐y coordinates of the upper‐left corner and the bottom‐right corner.
+
+    穷举？。。。
+
+ 
+
+177. Given a list of intervals, 比如 (10,20),(30,50)…,and a target interval,
+比如(18,35) 找有多少overlap.
+
+http://programmers.stackexchange.com/questions/64132/interestin
+
+    INTERVAL TREE
+
+ 
+
+178. 给定一个integer array, a1,a2…an, 找出所有a,b,c,d使得a+b = c+d. 很容易找到O(n^2)空间，O(n^2)时间的算法，不知道有没有更快更好的。
+
+    如果所有的数都相等，那至少需要O(n^2)时间复杂度。另外排序后，二重循环加两头扫描，不需要额外的空间复杂度了。
+
+ 
+
+179. n个球, n很大 > 1 billion, k个颜色, k相对小， 比如10. 要求in space sort最efficient的做法 白板coding. （hint, k<< n 所以最后算法争取比nlog(n)小)
+该题的第二问 k = 1000 实现比nlogn 更efficient的in space的算法
+
+    见138题
+
+ 
+
+180. If the Fibonacci series is 1,2,3,5,8,13,….. then 10 can be written as 8 +
+2 ==> 10010 and 17 can be written as 13 + 3 + 1 ==> 100101. The Question was, given n, I need to get all possible representations of n in Fibonacci Binary Number System. as 10 = 8 + 2 ==> 10010 also 10 = 5 + 3 + 2 ==> 1110 (Zeckendorf’s theorem)
+
+如果要得到所有的组合，先计算出该数范围内的Fibonacci数，再当成找零问题来计算就可以了。
+
+Zeckendorf’s theorem:
+
+Every positive integer can be represented uniquely as the sum of one or more distinct Fibonacci numbers in such away that the sum does not include any two consecutive Fibonacci numbers.
+
+ 
+
+181. void reversePairsOfLinkList(Node*& head) {}
+[] => []
+[A,B] => [B, A]
+[A, B, C] => [B, A, C]
+[A, B, C, D, E, F, G]  =>  [B, A, D, C, F, E, G]
+
+    见195题
+
+ 
+
+182. You have to paint N boards of length {B1, B2, B3… BN}. There are K painters available and you are also given how much time a painter takes to paint 1 unit of board. You have to get this job done as soon as possible under the constraints that any painter will only paint continuous sections of board, say board {2, 3, 4} or only board {1} or nothing but not board {2, 4, 5}.
+know it could be solved by DP. But solution space seems quite big. What is the optimal solution? Thx.
+
+    DP,类似于103题
+
+ 
+
+183. 一个range的序列（链表或数组），如[1,3], [2,6], [8,10]，[15,18] 写程序合并有重叠的range，比如上面的序列合并为[1,6], [8,10], [15,18] 如果这个序列不是静态的，而是一个数据流，如何 处理？
+    INTERVAL TREE
+
+ 
+
+184. 实现atoi，要考虑特殊的情况，比如不合法的输入等等。参照这个定义
+http://www.cplusplus.com/reference/clibrary/cstdlib/atoi/
+
+   
+
+185. word edit distance.
+
+    伪代码如下：
+
+   
+
+ 
+
+186. longest palindrome substring.
+
+http://www.akalin.cx/2007/11/28/finding-the-longest-palindromic-substring-in-linear-time/
+
+    如果是substring,那可以按中心位置依次搜索。
+
+    如果是subsequence, 与它的反求longest common subsequence即可
+
+ 
+
+187. Describe and analyze an algorithm to find the longest prefix of a given string that is also a palindrome. For example, the longest palindrome prefix of ILLINOISURBANACHAMPAIGN is ILLI, and the longest palindrome prefix of HYAKUGOJYUUICHI is the single letter S. For full credit, your algorithm should run in O(n) time.
+
+    TO LEARN， 后缀树？
+
+ 
+
+188. 给一个数据结构数组，（parent, child）， 重建二叉树，总是先遇见leftchild, 再遇见right child，假设输入没有问题。要求返回root。
+
+    用一个hashtable来保存所有见到过的结点。 Root结点就是没有在child位置上出现过的结点。
+
+ 
+
+189. 1.    两个sorted array, 如果merge成一个array。
+2.    如果这两个array没有sort呢？并分析复杂度。
+3.    如果有K个没有sorted的array怎么办呢？
+4.    如果当前机器有K个cpu， 怎么处理问题3呢？复杂度分析。（考虑multithreading）
+
+    后面几问假设是merge成一个sorted array, 那这个题就类似于外部排序的多路归并。
+
+ 
+
+190. 给定一个tree， 每个节点有一个数值， 如果找到一个从root到leaf的path，使得这个path上的所有节点的sum最小。 Interviewer所要的答案是和hashtable联系上的，因为考虑到树很大的时候需要很长的时间。这个题很容易用recursive的方式解答，可是这个不是interviewer所要的答案。后来按照interviewer的意见，还是基本写出了用hashtable的算法。
+
+    不理解题目的意思。。
+
+ 
+
+191. 给定一个没有通往父节点的连接的BST, 找到大于x的最小的那个节点
+
+中序遍历。略。。
+
+ 
+
+192. 技术问题是找一个binary tree的叶子的最少depth
+
+    分层遍历即可，略。。
+
+ 
+
+193. Integer to Roman number
+
+    CODE
+
+ 
+
+194. 有一行animal cages，每个cage的动物的用水量为数组,有两个pipe给所有动物供水，pipe给当前cage的cost 是 这个cage动物的用水量，给其他cage的动物供水的cost是(distance to that cage)*那个cage动物的用水量， 求两个pipe供水的位置使cost最小。
+
+    TO LEARN
+
+ 
+
+195. 问把整数分成 sum of square的经典问题
+
+    TO LEARN，数论题。。。
+
+ 
+
+196. longest increase consecutive subsequence. e.g. 3, 2, 4, 5, 1, 6. Return {2, 4, 5}
+
+    CODE
+
+ 
+
+197. 用1*2的瓷砖覆盖8*8的地板，有多少种方式呢？如果是N*M的地板呢?
+    中等难度的DP，有个解题报告见：
+
+http://www.cnblogs.com/PureMilk/archive/2008/07/21/1247492.html
+
+公式的论文见：
+
+http://arxiv.org/abs/math/0310326
+
+ 
+
+198. 生成Dyck word list
+
+    与生成所有合法的括号组合类似，见：
+
+    http://en.wikipedia.org/wiki/Catalan_number
+
+ 
+
+199. one integer array A with ascending order, for example  1 ,2 ,3,4, please generate another array  B with any sum of any 3  different numbers picked from the A with ascending order, for example for 1,2,3,4, the result is (1+2+3),(1＋2＋4),(1＋3＋4),(2＋3＋4）“
+    三重循环即可，代码略。。
+
+ 
+
+200. int array a[n] with all element 0<=a[i]<=1000,find the subarray with the largest sum that is <= max and output the starting and ending index of this subarray and the sum. If there is more than one such subarray, output the one with smallest starting index.
+
+算法：
+
+先求出累加和cum[i] = a[0]+…+a[i],从a[k]>max开始，在前面二分查找第一个cum[l]>=(a[k]-max), 直到找到范围最大的range. 复杂度O(NlogN)
+
+ 
+
+201. given is an unsorted integer array, how to divide it into two subarrays, such that the averages of these two arrays are the same (or have minimum difference).what if those are positive integers only, and what happens when it is mixed with positive and negative integers?
+
+    线性扫描并计算一下即可。正负数是否有关系？
+
+ 
+
+202. 一个arraylist,里面有很多string,它们按照未知的alphabetical顺序排列,要求输出所有可能的alphabetical order,(后来又问了如何判断是否有conflict)
+例子:it is a good day today,
+it<is  –  t<s
+is<a   –  i<a
+a<good –  a<g
+good<day–g<d
+day<today–d<t
+
+两两比较找第一个不同即可。
+
+判断是否有冲突？整个关系形成一个图，这个图应该是无环的，做一次DFS即可。
+
+ 
+
+203. 有一堆的工作,每个工作有开始和结束时间,假设表示为[2,3],[3,7]等等,现在要求在[1,n]的时间段内选出尽可能多的工作.
+
+    贪心，尽量选择结束时间最早的工作即可
+
+ 
+
+204. 给一个数组 里边都是整数 求最大乘积的连续子数组
+
+先按零把数组分成若干个子数组，再在子数组里找包含偶数个负数的最大的范围。
+
+ 
+
+205. f(i,j)=2^i*5^j给出一个长度为N的(i,j)序列，使得f值递增，i>=0,j>=0
+设f(i,j)是第k个数f_k, 则下一个数取使i+1或者j+1中间比较小的那个即可
+
+    206. f(N): return round(reduce(lambda x,y: int(x)+int(y), list(str(N))))/len(N) N为整数，f函数返回N各位数值的平均数，现在给出一个正整数范围[begin, end]，要求得出该范围中符合f(N)>=7的数的集合，希望算法尽可能比end-begin+1次test快。
+
+    TO LEARN，
+
+ 
+
+ 
+
+207. There is a straight road with ‘n’ number of milestones. You are given an array with the distance between all the pairs of milestones in some random order. Find the position of milestones.
+Example:
+Consider a road with 4 milestones(a,b,c,d) :
+a <— 3Km —>b<— 5Km —>c<— 2Km —>d
+Distance between a and b = 3
+Distance between a and c = 8
+Distance between a and d = 10
+Distance between b and c = 5
+Distance between b and d = 7
+Distance between c and d = 2
+All the above values are given in a random order say 7, 10, 5, 2, 8, 3.
+The output must be 3,5,2 or 2,5,3
+
+    对这个数组里的每一个数，如果它不能表示为该数组里两个数之和，则是一个要求的两个milestone之间的距离
+
+ 
+
+208. 找二叉树两个最大的相同子树
+
+    不是很理解题意。。。两两比较即可，复杂度O(N^2),如要加速，可以先计算每个结点的深度和子结点数，相同再进行比较。
+
+ 
+
+209. Given an array of elements find the largest possible number that can be formed by using the elements of the array.
+eg: 10 9
+ans: 910
+2 3 5 78
+ans: 78532
+100 9
+ans: 9100
+
+先按如下规定排序： a > b if ab > ba,
+
+然后再从高到低拼接起来即可。
+
+ 
+
+210. You have an array of 0s and 1s and you want to output all the intervals (i, j) where the number of 0s and numbers of 1s are equal. Example index = 0 1 2 3 4 5 6 7 8 array = 0 1 0 0 1 1 1 1 0 One interval is (0, 1) because there the number of 0 and 1 are equal. There are many other intervals, find all of them in linear time. How can this be done in O(n)?? find all intervals, not find the longest interval.
+
+    O(N)好像不可能做到，因为所有的intervals可能就是O(N^2)级别的
+
+-
+
+211. Rabin Karp Algorithm
+
+    略。。。
+
+ 
+
+212. Given a list of presentations with begin and end time that all need to use a conference room. We want to optimize the utilization of the room by allowing maximum hours of the conference room being used.
+
+DP题,先把所有的presentation按endtime排序，然后设q(endtime)为在endtime之间conference room被使用的最长时间。然后依次用presentation与之间所有的q相比，得到新的q.总体复杂度O(N^2)
+
+ 
+
+213. Given an array of int, each int appears exactly TWICE in the array. Find and return the int such that this pair of int has the max distance between each other in this array.
+e.g. [2, 1, 1, 3, 2, 3]
+2: d = 5-1 = 4;
+1: d = 3-2 = 1;
+3: d = 6-4 = 2;
+return 2
+
+用hashtable保存num->index,然后线性扫描一遍即可
+
+214. 二进制加法
+/**
+* i.e.
+*
+* char a[] = “11″;
+* char b[] =  “1″;
+* char *c = bstradd(a, b); // c is a pointer to “100″
+**/
+
+215. 给你一列单词／字符串（内部字符范围:unicode），例如：banana, cat, dog, elephant, type, middle, lake， 让你把这些单词排列成任意相邻单词不能有任何相同字符的序列，如果确定无法满足这个要求，返回false.
+
+考虑一个图，满足的首尾字母不同即有一条a->b的边，那该问题等价于找Hamilton圈，是一个NP完全问题
+
+ 
+
+216. 判断（二叉）树是否镜像对称
+
+    镜像对称的定义？
+
+ 
+
+217. Given a binary tree, find 2 leaf nodes say X and Y such that F(X,Y) is maximum where F(X,Y) = sum of nodes in the path from root to X + sum of nodes in the path from root to Y – sum of nodes in the common path from root to first common ancestor of the Nodes X and Y
+
+除了穷举，没啥好idea… 求所有的和O(N),求最近公共父结点可以优化到O(1)具体比较为O(N^2)，总体复杂度为O(N^2).
+
+ 
+
+218. x^n = y, x/n/y都是整数，n>1，y叫做一个啥数来着，姑且叫做Super Cool数吧,
+比如，1^2 = 1×1=1， 1^3 = 1×1×1 = 1 …
+2^2 = 2×2=4， 2^3 = 2×2×2 = 8 …
+现在给你一个整数y，请返回最近的那个Super Cool数，写Code。
+
+对每一个小于sqrt(y)的数，求对数后找一个最接近的即可。。
+
+ 
+
+219. 题目是给定一个unsorted int array, 怎么找到第一个大于0，并且不在此array的integer。
+比如[1,2,0] return 3, [3,4,-1,1] return 2. (time O(n), constant space?)
+
+    将第i个数放到i位，再从头扫描
+
+    220. 给定一个数字数组 (Let’s call it count-array) ，其中每个元素是从末端数小于原数组中该元素的个数。求原数组。原数组中元素是从1到n。
+Example:
+原数组  4,1, 3, 2
+Count array  3, 0, 1, 0
+求nlogn的算法。
+
+    CODE，考虑通过merge sort的变形
+
+ 
+
+221将整型变量 x 中数字左右翻转后存到另外一个整型变量 y中，例如 x = 12345 时，y为 54321，x = ‐123 时，y为‐321。其中 x 的个位不为 0。      void reverse (int x, int* y); 
+
+    CODE
+
+ 
+
+222. 对集合{1, 2, 3, …, n}中的数进行全排列，可以得到 n!个不同的排列方式。现在我们用字母序把它们列出来，并一一标上序号，如当 n=3 时：
+0．123
+1．132
+2．213
+3．231
+4．312
+5．321
+现在，请书写一个函数 void print (int n, int k)， （函数原型是用 C语言写的，你可以用你熟悉的语言）在已知 n和序号 k 的情况下，输出对应的排列，并简要阐述思路
+
+    223. 一维数轴上有 n 条线段，它们的端点都是已知的。请设计一个算法，计算出这些线段的并集在数轴上所覆盖的长度，并分析时间复杂度。例如，线段 A 的坐标为[4, 8]，线段 B 的坐标为[1, 5.1]， 那么它们共同覆盖的长度为 7。 请尽量找出最优化的算法， 解释算法即可，不必写代码。
+
+    TO LEARN, INTERVAL TREE
+
+ 
+
+224. 3 sorted arrays, A, B, C, find indexes i, j, k, so that max(a-b, b-c, c-a) is minimized. (a = A[i], b = B[j], c = C[k]) Another version is to minimize max(|a-b|, |b-c|, |c-a|).
+
+    IDEA:类似于三路归并，反复地将当前最小的元素往前移，并Update目标值即可。
+
+ 
+
+225. 一条直线上有N个站台，已知任何两点间直达列车的票价，求出从起点到终点的票价最优的乘车方案。因为从A到B，再从B到C的价格可能比直接从A到C便宜
+
+    DP。。。。
+
+226. N个job，要求分配到M台机器上，每个机器可以被分配0-N个job，但有些job相互排斥不能被放到一起执行，给出所有可能的分配方案
+
+要给出所有方案只能递归穷举吧
+
+ 
+
+227. 给N个元素，第i个元素有一个大于0的score(i)，要求随机选出k个，每个元素可以被选择任意多次，但保证被选择的概率要和score(i)成比例
+
+    将0-1之间按scroe(i)的比例划分成区间，然后生成0-1之间的随机数，按其所在区间决定为哪个元素
+
+ 
+
+228. N个矩形，所有矩形都有一条边在同一条直线上，他们相互可能有overlap，找出最后得到的这个不规则图形的所有边界点
+
+TO LEARN，
+
+也是INTERVAL TREE或者SEGMENT TREE?先取出所有的点，再把被任意矩形所包含的点去掉。
+
+ 
+
+229. 给两颗树，如果节点深度相同且value相同，则这两个node是match的，两棵树上的节点如果相互match，则它们的父节点必须也要match。假设一棵树上所有node的value都不同，并且兄弟节点间不用考虑顺序，问给两棵树，如何求最大match的node数目。如果value有重复，并且要求兄弟节点match的顺序一致，问如何求最大match数。
+
+    CODE
+
+ 
+
+230. Write a program to find the largest possible rectangle of letters such that every row forms a word (reading left to right) and every column forms a word (reading top to bottom). Words should appear in this dictionary: WORD.LST (1.66MB). Heuristic solutions that may not always produce a provably optimal rectangle will be accepted: seek a reasonable tradeoff of efficiency and optimality. (Hint: Use a B-Tree)
+
+http://www.itasoftware.com/careers/work-at-ita/hiring-puzzles.h
+
+    TO LEARN, hard.
+
+ 
+
+231. 直方图盛水
+
+    CODE
+
+ 
+
+232. We have been given a deck of cards and each combination has a rating eg 3 As is higher than 2 As 1K etc. Write an algorithm such that the probability of picking 3 or 5 or 7 cards from the deck results in high rating
+
+    DP,写递推公式
+
+ 
+
+233. 求一个unsorted数组中最长的等差数列（int 数组，可递增或者递减）
+http://compgeom.cs.uiuc.edu/~jeffe/pubs/pdf/arith.pdf
+
+    难题。。。略
+
+ 
+
+Jump Game:
+Given an array start from the first element and reach the last by jumping. The jump length can be at most the value at the current position in the array. Optimum result is when u reach the goal in minimum number of jumps.
+For ex:
+Given array A = {2,3,1,1,4}
+possible ways to reach the end (index list)
+i) 0,2,3,4 (jump 2 to index 2, then jump 1 to index 3 then 1 to index 4)
+ii) 0,1,4 (jump 1 to index 1, then jump 3 to index 4)
+Since second solution has only 2 jumps it is the optimum result.
+要求：O(N) time, O(1) space.
+
+类似于DP？反复update jump N+1步后，记录到达当前位置的最小步数
+
+
+234.一个数组，不考虑重复数字，找出数组中有多少个cycle。cycle：每个element去找他对应的index，如果index在界内，就继续找这个index的值所对应的下一个index直到找到一个cycle，或者出界。
+比方说 0，2，1，9，10
+对于0， index 0 就是 val 0， 所以是一个cycle
+对于2， index 2 是 1， 在界内，就找 index 1，which is 2，所以又是一个cycle
+总共4个cycles： 0–>0, 2 -> 1, 9 -> 界外， 10->界外
+先要求写了个可以有extra space的，然后要求no extra space
+
+No extra space需要修改原数组吧。。。CODE
+
+ 
+
+235. bool isOverlap(int a, int b, int c, int d)参数取值范围0~6代表星期几。能不能不用大于号和小于号
+
+    用一个七个数的数组来标记就行了吧
+
+ 
+
+236.给一个吸地毯的irobot，和一个长方形的屋子，四面有墙，四个指令：
+Bool moveForward（）//向前走一格，走不了的话返回false
+Void Rotate（int degree）//就是左拐右拐
+Bool isClean（）//当前单元格是否干净
+Void clean（）
+把irobot 扔在屋子任意位置，写代码让irobot清理房间，每一格都要走过（单元格没有坐标）
+
+    先走到角落，然后来回扫就行了
+
+ 
+
+237. Edit Distance
+
+    见185题
+
+ 
+
+238. {1，5， -5， -8，2，  -1，15 } 要把负的扫到左边，正的扫到后边。不能改变顺序得到{-5 -8 -1 1 5 2 15}  这个题有time 低于 n^2 space=O（1）的解法吗
+
+应该没有这样的解？
+
+ 
+
+239.给一个通常的表达式，转成后缀表达式
+
+    CODE
+
+ 
+
+240. Given n arrays, find n number such that sum of their differences is minimum. For e.g. if there are three arrays
+
+A = {4, 10, 15, 20}
+B = {1, 13, 29}
+C = {5, 14, 28}
+find three numbers a, b, c such that |a-b| + |b-c| + |c-a| is minimum. Here the answer is a = 15, b = 13, and c = 14
+
+    同224题
+
+ 
+
+241. reverse double linked list.
+
+    CODE
+
+ 
+
+242. [Facebook] Given an array A of positive integers. Convert it to a sorted array with
+minimum cost. The only valid operation are:
+1) Decrement with cost = 1
+2) Delete an element completely from the array with cost = value of element
+
+DP，写递推公式，使[0,i]中的元素有序，update时，加入[0,i+1]，要么decrement以前的，要么删掉i+1
+
+ 
+
+243. 在一个平面上有n个点，设计算法看能不能找出四个点构成一个正方形，分析时间复杂度。
+
+    TO LEARN
+
+ 
+
+244. Algorithm to find the two numbers whose difference is minimum among the set of numbers.
+For example the sequence is 5, 13, 7, 0, 10, 20, 1, 15, 4, 19
+The algorithm should return min diff = 20-19 = 1.
+Constraint – Time Complexity O(N) & Space is not a constraint [upto O(3N)]
+Assumption – Sorting O(nlogn) & comparison of adjacent numbers is already known & is not an option. Try to keep it linear
+
+    想不出来。。。
+
+ 
+
+245. Given an array of integers (both positive and negative) divide the array
+into two parts (sub-arrays) such that the difference between the sum of
+elements in each array is minimum?
+
+如果subarray连续的话很简单。。。
+
+ 
+
+246. 给一个string, 比如“facebook”, 可以拆成“face”和“book”, 对任一string, 找出最长的可以拆分成其他单词的子串。
+
+    先在string里找是单词的范围，得到一组range,然后将这些range按起点排序，再递归+回溯，找到最长的能正好拼接在一起的最长的范围
+
+ 
+
+247. 有10个unsorted array, 分给10太不同的机器处理，这10台机器之间不能通信，但可以和总机通信，如何求总的median. 如何减少数据量的传输。
+
+    TO LEARN, 设计题
+
+ 
+
+248. You have an array like ar[]= {1,3,2,4,5,4,2}. You need to create another array ar_low[] such that ar_low[i] = number of elements lower than or equal to ar[i] in ar[i+1:n-1].
+So the output of above should be {0,2,1,2,2,1,0} Time complexity : O(n) use of extra space allowed.
+
+等价于前面一个求逆序对的题的吧，感觉不可能做到O(N),
+
+ 
+
+249. 给一串数字（比如说1，4，10，22，30，表示4个区间：[1，4]，（4，10]，（10，22]，（22，30]）。现在给很多个数字，要设计一个快速算法，能用最快的速度告诉那些数字分别落在哪个bucket那里。比如说前面这个例子输入double数13，算法返回string: “(10,22]”；输入double[]序列13，8，25，返回string[] “(10,22]” “(4,10]” “(22,30]”
+
+    TO LEARN， INTERVAL TREE?
+
+ 
+
+250. Given Numerator and Denominator. After division you might get a recurring decimal points float as the answer. You need to identify the recurring part? For example 23.34563456 … return 3456
+
+    CODE
+
+ 
+
+251. A positive integer is said to be square free if it is divisible by no perfect square larger than 1. For example, the first few squarefree numbers are {1, 2, 3, 5, 6, 7, 10, 11, 13, 14, 15, 17, 19, …}. Find the nth smallest squarefree number. Note n can be very large such as 1M.
+
+先找出sqrt(n)以内的所有质数。。再想想
+
+ 
+
+252.判断一个string是否是某个pattern的周期循环
+
+    TO LEARN，后缀树？
+
+ 
+
+253. 在一个N Dimensional 的正方形里面，Assume the top right point is (n,n,…. n) and bottom left point is (0, 0, 0…. 0), given any point in the cube, find all the paths inside the cube to the (n, n,…n) around it, change its value to 1. Otherwise, mark its value to 0 (cannot recall exactly anymore). how to do it. Given a very big such matrix and n computer, how to do it efficiently. Assume each computer has very limited memory, how to do it.
+
+    TO LEARN
+
+ 
+
+254. 给个数组，没排序，已知数组中每个元素距离排序以后的位置最多是k，让你给这个数组排序
+
+    TO LEARN, Shell排序？
+
+ 
+
+255.两个线段数组，求common区间 A［1，5］［10，15］B [3,12] return [3,5],[10,12]
+
+TO LEARN, Interval tree?
+
+256. minimum window cover
+
+    TO LEARN
+
+ 
+
+257. Given a sorted array of n integers, pick up k elements so that the minimal difference between consecutive elements is maximal (that is choose the elements to maximize the quantity min(a[i+1] – a[i]))
+
+DP题，写递推公式
