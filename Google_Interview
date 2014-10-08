@@ -1,0 +1,42 @@
+Onsite完，应该是挂了。
+
+
+第一轮，越南人，黑脸
+
+问google search的时候auto complete怎么弄的，答trie, 然后要求实现建树，和给出
+所有auto complete的结果。然后follow up了结果有序，如果是非英文情况和在多台机
+器上如何优化。都答出来了，写了80多行code累死我了。
+
+
+第二轮，亚裔，很友好。
+
+leetcode俩题，加一个design，关于音乐app的。都不难，应该没什么问题。
+
+
+第三轮，中年老美+shadow，正常
+
+read4k，我应该是可以写出来的，不过面试官尝试给hint然后要我按照他的套路写，结
+果就写的略混乱。
+
+第四轮，年轻老美，黑脸
+
+有一个无序数组， 和一个数 x，要你找这个数组里triplet, a + b + c <= x 的个数
+。这个题只给了基本解之上的优化，回来之后查了好像用什么binary indexed tree. 
+非常不好想。。。
+
+第五轮，欧洲人？很友好
+
+给你一些string，比如
+
+A: BCD
+
+B:E
+
+F:G
+
+表示A和B, C, D有关联，B和E有关联，F和G有关联，
+
+然后再给你两个字符问这两个是不是有关联，建图， DFS搞定。
+
+第二题问了anagram substring match的问题。 sliding window + rotate hashing 搞
+定。
