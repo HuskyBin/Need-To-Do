@@ -1,4 +1,31 @@
 
+topological sorting
+direct acyclic graph
+relaxation method
+floyd-warshall 
+Dijkstra's
+Prim
+Bellman-ford
+Strongly/Weakly connected components
+depth/breadth first search
+Minimum spanning tree
+
+and so on ,  heap, binary heap, B-tree, BST, linked-list
+
+所有这些东西，无论考不考，你都该已经知道了，才可以预约面试
+
+刷题是没什么本质性作用的，你刷了200多道题，很可能都是tree structure的，其他
+部分没刷到，就傻眼了
+
+除此之外，你要掌握scheduling的相关知识，
+
+然后再去学一些常见的机器语言，C＋＋或者java，这才是正确的学习顺序
+
+一上来就用IDE/eclipse写两行helloworld，却对OS和algorithm的原理一窍不通，很快
+就被stuck住的
+--
+
+
 好多人问，我就发到这里吧。
 
 面试题的构成和分类
