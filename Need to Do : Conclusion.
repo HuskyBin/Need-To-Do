@@ -1,3 +1,43 @@
+我在面试中，发现还是有时候很难去准备的，听起来也很怪，我就随便列一些我遇到的
+低频题给大家看看，有个感觉。
+
+语言细节
+1. python yield什么意思，generator，如何操作系统命令popen跟os.system区别
+2. 问我API是叫什么，作用是如何把一个path 和文件连起来，path+name，我后来才明
+白是说path里面有可能最后没/,path="/ab" , name = "ef"
+3. java实现多线程的三种方式
+4. java跟c++模板的区别
+
+高级算法
+1. 图论：把一个有向图划分成几个区域，每个区域用一中颜色染色，强连通？
+
+分布式理论
+2 phase commit是啥
+vector clock
+一致性hash，分布式hash
+
+数据库
+数据如何备份，把mysql导入导出命令给写出来，load data...
+
+信息处理：
+如何消重，去除spam
+
+数学 
+1. reject sampling, 计算期望
+
+linux内核
+1. linux的原语是怎么实现的
+2. 软练和硬连的区别
+3. kill -9 9是什么意思，会不会有些进程永远杀不死
+4. ls -l /dev
+brw-r-----  1 root     operator   14,   0 Feb 29 01:48 disk0
+解释每个字符什么意思，14是什么
+
+计算机原理
+CPU L1, L2, L3 cache, memory 速度
+磁盘读写速度
+SSD跟Sata磁盘区别
+
 
 topological sorting
 direct acyclic graph
