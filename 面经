@@ -115,3 +115,86 @@ Cc150, programming interview exposed, introduction to Algorithm 第三版（当�
 
 
 
+
+背景：国内最好的技校+美本公立普通学校CS+东海岸比较好的学校CS MS
+Amazon和一个湾区大公司的实习 有大量内推
+CC150 leetcode过了一遍，题刷的不是很好，不过由于海投，面试经验比较多
+
+
+Onsite round: Google(内推直接onsite, rej), Facebook(内推，rej), LinkedIn(内
+推，offer), Oracle(Target school, offer), Amazon(内推直接onsite，drop), 
+Microsoft(一轮Campus之后onsite, offer)
+
+Phone/Campus: Dropbox(rej), Pinterest(2nd round rej, 很可惜), TwoSigma(rej, 
+大师兄内推, 可惜), Goldman Sachs core Strats(rej), Citadel tech(rej), SIG(
+drop), TGS(rej), AppNexus(rej, 莫名其妙), Airbnb(drop), EA Games(drop)
+Code test: Twitter(rej), Hulu(rej), Palantir(drop)
+
+Email Rej: JP Morgan, Box, McKinsey, Flow Traders
+
+石沉大海：Apple(内推), eBay(内推), Renaissance Tech, D.E. Shaw, Morgan 
+Stanley, Merrill Lynch, Spotify, Pandora, MangoDB, list goes on…
+
+投了不少的金融，经历不符，基本都直接挂了
+
+Google题目：
+1. MST of a all connected graph. Need to use Fibo heap to reduce complexity.
+2. Game of Life, one transition. (2.1 use n*n matrix, reduce storage space 
+to 3*n. 2.2 use other storage method)
+3. String compressor that turns "123abkkkkkc" to "123ab5xkc". Decompressor 
+is already written and must remain unchanged. take into account of strings 
+like: "123xk", "123xx" ...etc as input
+4. Youtube mash design, how to do a video version of Mark’s FaceMash. SQL 
+schema, recommendation/ranking algo design
+
+Facebook题目：
+电话
+1. Big Integer multiplication. (Leetcode OJ过了的对方不接受, Optimization 
+required, how to do 8 digits*8 digits, etc).
+2. Binary tree level order traversal. (leetcode 2*)
+3. 也是leetcode 3*原题，不记得了
+
+Onsite
+1. Given 1->a, 2->b … 26->z. 126 -> az or lf or abf (bfs/dfs not accepted, 
+need to use DP or some tricky method)
+2. Binary tree serialization/de-serialization (leetcode 3*, 这道题pinterest
+也问了）
+3. Permutation with duplicate (leetcode 3*)
+4. Range maximum query, pre-processing
+题答少了一道，rej
+
+LinkedIn题目
+电话
+1. pow(x,n), check boundaries, O(log(n)) (leetcode 2*)
+2. rotated binary search (leetcode 3*)
+3. hashcode() of a String in Java (why use 31 as magic number)
+4. Kth closest point to point P on a plane with N points (heap, comparator).
+5. ArrayList impl without importing ArrayList, use dynamic array
+
+Onsite
+1. IsSameTree (leetcode 1*)
+2. Word Ladder II (leetcode 4*)
+3. Text Justification (leetcode 2*)
+4. how to get top 10 Exceptions for the past 24 hours in 400 machines and 
+update every 5 minutes. General idea: Kafka + Storm. Uses sliding window, 
+hashTable, heap. (这道题pinterest也问了）
+5. Tell me in depth about the project you’re most proud of (45 mins).
+6. How would you improve LinkedIn Influencer to enter international market. 
+和Manager谈的很高兴, Offer
+
+Microsoft题目
+Campus
+1. 聊resume
+2. remove duplicate (leetcode 2*) 似乎两行可以写
+
+Onsite
+比FLG简单太多，就不太记得了，Offer
+
+Oracle题目非常多和杂乱，基本都是system题和聊resume/project 由于是target 
+school，Offer
+
+最后的package都按照四年平摊的话，每年大概是LinkedIn 150, Oracle 125, MS 117
+不交州税
+考虑到做得东西比较感兴趣，就签了LinkedIn，今年夏天又可以回到湾区，希望能够认
+识一些版上的前辈，多多请教！
+
