@@ -1,0 +1,117 @@
+背景：本科生物，统计master + 9个月工作经验
+结果:   offer: amazon, facebook, linkedin, google
+Withdraw了ebay的onsite，别的好多电面都fail或者没有消息
+
+电面：
+Amazon两个：面得太早，具体想不起来了，code题不多。问怎么从某种格式的log file
+里抓出想要的信息，简单的regular expression 和perl scripts, 问一些如果server
+有问题怎么trouble shooting的开放问题。
+Linkedin 两个：
+1 binary tree level order traversal, leetcode原题 
+2 pow(x,2) leetcode原题
+3 判断一个string表示的数字是否valid，类似leetcode Valid Number原题，一些具体
+要求要和面试官讨论后确定
+4 permutation I and II leetcode原题
+Facebook一个：
+1 reverse linkedlist (这个我无话可说)
+2 decide whether two strings are “similar”, definition of “similar” : 
+only allow at most one modification, definition of “modification”: insert,
+delete, or replace
+Google 两个：
+1 reverse all the vows in a string
+2. a list of log records, each one contains info of a function call [
+function_name, start_time, end_time], for each function, print the average 
+call duration time.
+3.  a list of pairs (childNode_ID, parentNode_id), construct a tree given a 
+list which represents the structure, return root node.
+4. follow up of the last one, construct a directed graph represented by the 
+list of pairs, return any node of the graph.
+5. follow up, given one node in the graph(or root of the tree), return a 
+list of pairs representing the graph /tree structure.
+Twitter两个：
+1 spirally print out matrix, leetcode 原题
+2 given a string and a list of words, return all the words in the list 
+starting with the input string (or having the input as the prefix )
+3 bfs and dfs traversal a trie
+4 implement  a stack,  O(1)  push(), pop() and min() 
+Ebay两个：
+1 a lot of different ppl share the same git respository, thousands of files 
+in it. A lot of commits everyday. Find a way to figure out how many files 
+are edited (just a number for the delta) per hour, or every 10 hours, or per
+day.
+2 review a piece of codes, discuss all the possible issues in it.
+3 given a string and a dictionary, return unique substrings which are 
+contained in the dictionary.
+Walmartlab 一个：
+1 given an array of integers, positive, 0 or negative, find the maximum 
+value by multiplying three of the numbers.
+2 return all the k v pairs in a long list of unparsed url. (using regular 
+expression)
+
+Onsite:(不说公司名字，我就混在一起说了，也有群面的时候听来的。 题目也有改动
+，如果大家觉得条件给得不对，可以提出来讨论)
+1.    两个strings, 长string s 和短string t, 找出s中包括了t中所有字母的最短
+substring, O(n)解法，leetcode原题
+2.    一个online shopping的system,卖一种专门的商品，商品有一个专门的编号规则
+，顾客在网上order了商品，信用卡上被扣了钱，但是商品却没有deliver到，作为一个
+support engineer 怎么trouble shooting 这个issue.
+3.    上面一个问题的followup, 这种商品相同的编号下有不同的version No. 但是
+version No. 有可能是错的，编号数据存在怎样怎样的relational schema里，写sql抓
+出错误信息.（抱歉实在不能给出更准确的信息了）
+4.    四个小孩过独木桥，一个手电筒，通过时间分别是 1， 2， 5, 10min,每次最多
+同时过两人，必须有手电筒，问17min所有人过桥的solution
+5.    Given a string,尽可能满的填到一个nxn的grid里去，按一行行填进去，按一列
+列打印出来
+6.    Linkedlist, node 中除了有next指针，还有below指针，below可能指向另一个
+这种Linkedlist的头，given一个这样一坨（或者是n维）的linkedlist的头，把它压平
+成一个一维的list,顺序无所谓，时间O(n),空间O(1) programming interview exposed
+原题
+7.    一段错误满满的java code，挑错
+8.    Find the lowest common ancestor in a binary tree,有parent 指针和没有
+parent指针的两种情况。Followup是在有parent指针的情况下，只travel一遍tree怎么
+做。
+9.    和manager意见相左怎么办？
+10.    给你一堆线段，可能有overlap,找出它们cover住的总长度，O(nlogn)解法，
+follow  up,不sort怎么做
+11.    Given an array of integers, 除一个数字出现奇数次外，所有数字都出现偶
+数次，找出那个出现奇数次的。
+12.    Given两个文件名，打印出重合的行
+13.    A B D F G _ 填出下一个字母（我保证这是我所有所有的面试题里最奇葩的，
+给的hint是横杠上填H,然后问我下一个是什么，到最后也不知道怎么办，非常尴尬）
+14.    挑出一个log出现次数最多的3条记录，答曰用heap,然后实现heap的extract 
+maximum 和maximize at index i的code
+15.    密码题（板上讨论过多次），一个密码锁四位，可以用一个长string,来每四个
+每四个读来试密码，怎么设计这个长string用尽可能少的digits来试出0000-9999这一
+万种可能。Hamilton回路问题，NP, dfs+recursion，Wikipedia上有代码。但是也有别
+的方法。
+16.    Count and say, leetcode原题
+17.    实现两个methods, 一是ispalindrome(),这个很简单，一个是 ispalingram(),
+given an alphabet,判断一个string 是不是cover了alphabet中的所有字母且不包
+含alphabet中没有的字母。
+再给你一个set of words,任取一些words以不同的顺序拼起来都可产生phrases,问怎么
+有效返回这个set能产生的所有既是palindrome又是palingram的phrases. 
+18.    Anagrams,leetcode原题，O(n)解法
+19.    LRU cache,当时还不是，现在也是leetcode原题了
+20.     Sqrt(x), leetcode原题，followup是，如果用牛顿法，不是求f(x)=x^2=0这
+个方程的解，而是一个whatever方程的解，怎么写code.
+21.    两个int array, size 都是n,每个array各挑一个数相加，可以得到n^2个sum,
+返回这些sum中最大的n个，O(nlogn)解法
+22.    Find Influencer，O(n)解法，http://www.glassdoor.com/Interview/Consider-an-X-x-Y-array-of-1-s-and-0s-The-X-axis-represents-influences-meaning-that-X-influences-Y-So-for-example-i-QTN_498161.htm
+23.    设计一个类amazon商品的page,包括的内容有product info, reviews, 
+recommendations (like ppl who buy this also buy),要求user customized.
+24.    设计一个youtube的type ahead search bar,涉及到数据结构，distributed 
+hashtable和估算内存。
+25.    A cluster of machines, merge sort
+
+准备：
+Cc150, programming interview exposed, introduction to Algorithm 第三版（当然
+了没看完）leetcode 两遍半, careercup网站面经，本版面经，wikipedia
+感想： 
+好好做题，自己做，做了要懂，不懂就问。
+初级码工的job market还挺好的吧，大家加油。
+
+
+
+
+
+
