@@ -11,3 +11,35 @@ DNS Round Robin的最大的优点就是易于实现和代价低廉：
 　　 Weighted round robin (WRRS)： 向较大容量的服务器分配较多的工作。可以根据负载信息动态的向上或向下调整。 (用于实际服务主机性能不一致时)
 
 
+NOSQL的优势
+
+易扩展
+
+NoSQL数据库种类繁多，但是一个共同的特点都是去掉关系数据库的关系型特性。数据之间无关系，这样就非常容易扩展。也无形之间，在架构的层面上带来了可扩展的能力。
+
+大数据量，高性能
+
+NoSQL数据库都具有非常高的读写性能，尤其在大数据量下，同样表现优秀。这得益于它的无关系性，数据库的结构简单。一般MySQL使用Query Cache，每次表的更新Cache就失效，是一种大粒度的Cache，在针对web2.0的交互频繁的应用，Cache性能不高。而NoSQL的Cache是记录级的，是一种细粒度的Cache，所以NoSQL在这个层面上来说就要性能高很多了。
+
+灵活的数据模型
+
+NoSQL无需事先为要存储的数据建立字段，随时可以存储自定义的数据格式。而在关系数据库里，增删字段是一件非常麻烦的事情。如果是非常大数据量的表，增加字段简直就是一个噩梦。这点在大数据量的web2.0时代尤其明显。
+
+高可用
+
+NoSQL在不太影响性能的情况，就可以方便的实现高可用的架构。比如Cassandra，HBase模型，通过复制模型也能实现高可用。
+
+
+One of the primary reasons that NoSQL will never wholly replace SQL is that it was never meant to do so.  NoSQL databases have a very narrow focus: they are designed primarily for storage, and offer very little functionality beyond. When transactions enter the equation, relational databases are still the better choice. Further, NoSQL doesn’t really do so well with data backup on its own.
+
+Standardization and Open Source
+
+That NoSQL is open-source could at once be considered its greatest strength and its greatest weakness. The truth is, there really aren’t many reliable standards for NoSQL databases quite yet, meaning that no two databases are likely to be created equal. Getting a particular implementation to play nice with existing infrastructure can thus be something of a crap-shoot, while support could end up being spotty when compared against a more traditional database implementation.
+
+Performance and Scaling > Consistency
+
+Because of the way data is stored and managed in a NoSQL database, data consistency might well end up being a concern. NoSQL puts performance and scalability first; consistency isn’t really a consideration. Depending on what you’re using it for, this could actually be either a crippling weakness or a powerful strength. In certain situations – such as when you’re dealing with a massive onslaught of unstructured data – this is completely acceptable. In other situations, such as management of financial records, it most certainly is not.
+
+A General Lack of Maturity
+
+While it’s certainly true that NoSQL isn’t exactly the new kid on the block (the underlying technology has existed for at least ten years now), widespread acceptance of NoSQL still lags; compared to traditional relational databases the technology is still relatively immature. This is reflected also in a lack of developers and administrators with the right knowledge and skills: NoSQL may be administrator and developer-friendly, true, but that means nothing if neither administrator nor developer have the tools or understanding to address it.
