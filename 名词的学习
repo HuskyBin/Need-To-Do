@@ -28,7 +28,7 @@ NoSQL无需事先为要存储的数据建立字段，随时可以存储自定义
 高可用
 
 NoSQL在不太影响性能的情况，就可以方便的实现高可用的架构。比如Cassandra，HBase模型，通过复制模型也能实现高可用。
-
+缺点
 
 One of the primary reasons that NoSQL will never wholly replace SQL is that it was never meant to do so.  NoSQL databases have a very narrow focus: they are designed primarily for storage, and offer very little functionality beyond. When transactions enter the equation, relational databases are still the better choice. Further, NoSQL doesn’t really do so well with data backup on its own.
 
