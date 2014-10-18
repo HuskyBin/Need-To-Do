@@ -9,3 +9,5 @@ DNS Round Robin的最大的优点就是易于实现和代价低廉：
 　　 Round robin (RRS)： 将工作平均的分配到服务器 (用于实际服务主机性能一致)
 　　 Least-connections (LCS)： 向较少连接的服务器分配较多的工作(IPVS 表存储了所有的活动的连接。用于实际服务主机性能一致。)
 　　 Weighted round robin (WRRS)： 向较大容量的服务器分配较多的工作。可以根据负载信息动态的向上或向下调整。 (用于实际服务主机性能不一致时)
+
+
