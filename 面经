@@ -198,3 +198,159 @@ school，Offer
 考虑到做得东西比较感兴趣，就签了LinkedIn，今年夏天又可以回到湾区，希望能够认
 识一些版上的前辈，多多请教！
 
+
+
+
+发信人: shaitthis (我本将心向明月，奈何明月照沟渠。), 信区: JobHunting
+标  题: 总结一下我的找工作经历，回报版上。
+发信站: BBS 未名空间站 (Sun Aug 25 14:20:42 2013, 美东)
+
+
+找工作结束了，从版上学到了很多东西，总结一下我的经历回报版上，希望大家都能拿
+到心仪的offer。 
+
+本人纯DS男一枚，跟本上的牛人绝对没得比。总结一下我这几个月的申请经验。
+先后面试了几家公司，拿到了A, MS 和 G 三家的面试。A家7月初面试结束后到现在对
+我不管不问，不说拒也不说不拒，应该是默剧了。  M家是8月中oniste的，第二天出的
+offer。一周后的周一面试的G家，因为有MS家的offer让我赶快答复，我就push G 家快
+点出结果， G家当周的周五确认我拿到offer。
+最后我选择了去G家，package很DS，跟版上牛人的没得比，就不拿出来献丑了。
+
+先上面经。
+A家：
+先是2轮电面。然后参加了onsite，见到了6个人。 
+    电面1: 老美白人
+        1. talk about a scenario during your works, when the manager did not
+want to take your advice, but you try to finished it at your own time.
+        2. Given a integer array, test if there is any consequel subarray 
+which sum of elements is 0.
+            [7, 1, 1, -2, 3, 4] ==> true [1, 1, -1]
+        3. Give a 2D integerer matrix, calaculate the number of shapes. 
+            Shapes is defined as the parts which are composed of same 
+integer number.
+    电面2: 老印
+        1. Introduce yourself
+        2. 2Sum: Can use extra space; can not use extra space. 
+        3. // Write a function to reverse the words in a sentence in a space
+optimal way. 
+            // Input: "This is amazon"
+            // Expected output: "sihT si nozama"
+        4. Design LRU cache class. 
+        5. Come up with the class design for a library management systems (
+email me your design)
+        这是我第二天发给他的解答。写的很差，不过希望对大家有帮助。 
+        https://docs.google.com/file/d/0B7XpZqNXV-NiWWtjR054TVA3Vnc
+
+
+onsite过去很久了，很多题目都记不清了，尽量回忆。 
+去的时侯大部分出的是behavior题，感觉每个人手里拿着一个厚厚的本子，上面密密麻
+麻的面试题目。他们就在里面随机找题。
+    1. 介绍你的项目，你遇到的最大的difficulty 是啥，怎么解决的？
+    2. 介绍你的项目，你的项目中socket communication怎么实现的，有没有用open 
+source的代码。我回答的没有，他然后问，为啥不用？感觉这个题目我没有回答好。 
+    3. 跟他们的老印hire manager谈，问了一堆behavior题目。比如：你在现在公司
+，最大的creative idea是啥；你怎么跟teammate合作；遇到有人不合作你怎么办；
+    4. 让实现不用除法的division的C++实现。写完后开始狂问细节，我感觉做好题但
+是对细节不清楚的话，很容易fail这种面试。 
+    5. design问题，让实现twitter的tweet功能。怎么设计。
+    6. 设计实现online trading 系统，怎么设计数据库，前台，后台的功能等。 
+
+    面试完后发了感谢email给recruiter，她说当周四会给我答复，但是直到今天都没
+有消息，我也没有催。呵呵
+
+MS家：
+    先是一轮电面，然后oniste。
+    电面问题：
+        1. C++的replacement new是咋回事？为啥直接不用类型转换。
+        2. 你有一个service，会处理些很expensive的operation，client 会要求
+server执行这些operation，问，怎么防止client的 deny of servie 攻击。
+        3. sigleton pattern是怎么回事？how to define, why need it and when 
+to use it;
+        4. thread 跟process 的区别
+        5. talk about your project; what part are you working on; how to 
+protect your system from attack;
+        6. how to create an object to a specific memory location; what's the
+difference with regular new and replacement new; why use replacement new, 
+not type cast directly;
+        7. difference of reference and pointer
+        8. difference of class and struct
+        9. design problem: distributed server with load balancer, can have 
+very heavy operations, how to protect it from DOS attack.
+
+    Onsite:
+    前后见了6个人，前面5个是技术面试，最后一个是他们的tech leader。
+        1. 介绍自己的project，说说自己最proud的项目。说说自己遇到的最大的
+challenge
+        2. 2D矩阵，行排序了，列也排序了，find a target integer
+        3. 怎么设计实现facebook的fllow 和 朋友的最新动态
+        4. 一个linked list，每个node有一个randomly 指向其他节点的pointer，如
+何实现deep copy。这个版上有很多讨论
+        5. 一个二叉树，每个节点有一个parent指向parent，找出任意两个node的
+first common ancestor node
+        6. 介绍他们项目的细节。我穿插介绍我的项目，以及我自己的项目跟他们项
+目想通的地方。比如他们用了一个safty guard，我的项目中也用到了，我就着重讲述
+我是怎么做的，怎么改进优化的。
+        7. 用C++实现merge两个排序过的数组。顺利写完后有一堆非常非常detail的
+后续问题，从memory  的组织，到编译器的优化处理，到程序可能有的问题，到C++的
+exception机制。当时我记得3分钟写完了代码，花了20分钟应付各种各样的细节问题，
+然后根据各种细节面试官给出了各种不同地变种问题，需要继续实现。要是有任何对C+
++的概念迷糊的地方很容易死掉。 
+        8. 中午吃饭面试，跟个老印，狂问我behavior问题，就是平时怎么工作，怎
+么跟同事合作啥的，大概30分钟。然后回来出题，让实现一个多线程程序，要求这个程
+序保证必须能够产生死锁。实现了一个后加了一个条件，不能用sleep实现另一个。 实
+现rotate 过的排序数组的search问题，就是一个排序数组被rotate了，从这里面找
+target。
+        
+    很多题目都忘记了，总体感觉不难，但是因为他们做底层系统，对细节问的非常到
+位。需要深刻理解OS，C++，软件工程，以及好好处理behavior问题。 
+    
+    面完第二天给了offer，给了1周的deadline。 
+        
+Google 家：
+    因为他家签了保密协议，而且我最终去了他家，我就不说原题了，我用一些变通题
+目代替，但是只要作对了变通题目，做原题绝对没有问题。
+    一轮电面：
+        先介绍自己的项目，一些behavior 问题，遇到的challange，怎么解决的。如
+何协作。 
+        写一个程序，找出 5^1234566789893943的从底位开始的1000位数字。 
+    Onsite:
+        前后5轮技术面试。从上午10点半面到下午3点半，中间半小时(或者一小时？
+记不清了)午饭。
+        1. 密码锁问题，实现最短密码问题，版上有讨论。
+        2. 抛硬币问题：抛一次出现正反面的概率都是50%。求抛5000次，最后正反两
+面出现次数相同的概率。follow up：求正反两面出现次数相同，并且在抛的过程中反
+面出现的次数从来没有多过正面的次数的概率。（这个就是valid parenthethis问题，
+catalan数）
+        3. 2Sum问题
+        4. 在2D的screen上划线(x1, y) 到 (x2,y)，其中知道screen的宽W，高H。每
+个坐标(x, y)对应memory的一个bit，给定memory的初始地址，写代码实现。
+        5. 用C++实现shared pointer。见http://msdn.microsoft.com/en-us/library/vstudio/bb982026.aspx
+        6. open question：现在很多application是web based application，谈谈
+web based跟以前的desktop application的优缺点
+        7. 有一堆文件，怎么找到并且删除那些内容跟其他某个(些)文件deuplicate
+的文件
+    
+        
+我从4月初开始认真准备找工作，前前后后准备了4个月，把leetcode认真做了3遍，将
+CC150好好做了2遍。将算法导论那本书看了3遍。还有好好看了design pattern，好好
+看了此人的博客 http://blog.csdn.net/v_july_v 。
+
+在准备的时侯还是很痛苦的，因为一月份老婆刚生了儿子，我们没有请国内的父母过来
+帮忙，所有的照顾孩子只能靠我们自己。我每天要上班，回家要照顾孩子，现在工作的
+小公司老板很push，白天尽量抽时间做题看书，但是时间一点都不能保证。我晚上强迫
+自己从9点到12点至少保证3小时的时间做题，那段时间绝对是痛苦的。呵呵
+
+我感觉面试的过程中出现的题目还是很基本的，我所有的面试都没有遇到过很难的DP问
+题，都是很简单的实现问题。但是越是简单的问题越是难回答，因为太多细节问题了，
+越往下深入越困难，需要真的理解OS，编译，算法，数据结构等的基础知识。我觉得认
+真准备还是很有必要的。 
+
+最后我选了G家，其实Ms 家给的offer比G家好多了，在Seattle可以很容易的生活，不
+过因为我想去湾区，也就忍痛放弃了。 
+
+本人是纯DS男一枚，像我都能拿到offer，版上的所有人找到心仪的下家肯定没有问题
+，只要好好准备会有很好的回报的。
+
+祝大家面试顺利，都能拿到心仪的offer。
+
+
