@@ -1,0 +1,14 @@
+看到很多设计题，尤其是big data, large scale的，基本上都可以用我们的tech 
+stack秒杀，就是
+
+kafka + spark + cassandra
+
+其实谈到big data, large scale的话，能用到的技术也就那么几个，尤其是一谈到
+performance的话，基本就没啥好选的了。目前industry最明显的趋势就是上边这个
+stack，估计dongfei大牛也认可。
+
+如果这些技术不熟悉的话，storm，hbase也可以侃侃。再不行的话，redis，mongo这些
+也能将就一下。
+
+如果不要求performance的话，hadoop那套东西可以讲讲。couchbase啥的还是比较小众
+，面试谈的话对方也不一定知道。
