@@ -1,3 +1,120 @@
+帮朋友转一下面经：
+
+不是牛人，也没有遇到牛人那么难的面试。 
+4个多月前面的，整理过几个国人论坛半年内的G面经，周围也有不少人面，感觉还是比
+百分之七八十的面经难，擦。
+之前准备了一些最近常考的G家独有题，结果一个都没碰到。。。也没碰到过leetcode
+，CC150原题。之前也看了不少杂书和advanced topic， 花了不少功夫准备，不过因为
+其他事情中断了复习，最后突击了一下，这点还是希望大家引以为戒。
+
+也许是大家都刷题bar高了，基本上全是算法而且要求写code且量不小，所有题都要推
+到optimal解法， 至少有三个面试官没有循循善诱，而是赤裸裸的不到最优解不让写
+code外加鄙视。后来自己从最优解回头看所有题目，各种呵呵。
+
+面经只包括主要的题目，面试前后扯淡神聊的都没记录在内。我的表现也自然有好有坏
+, 面试官看上去都很nice，可惜题目摆在那里，我水平不够，想放水都难。我简历是越
+来越挫，G家还这样招待我教我做人，水平确实有限就不高攀了，自己回去闭关反省了
+，希望能帮到大家。
+
+电面1：
+expr ::= int | ‘(‘ op expr… ‘)’;
+op ::= ‘+’ | ‘*’;
+
+“( * 1 ( + 1 2 3 ) )” => 6
+“( * ( + 1 1 ) 17 )” => 34
+“7” => 7
+( * ( + 1 1 ) 17 )
+( * 17 ( + 1 1 ) )
+operator: *+
+oprands: (1 (1 2 3)
+
+这题特别要求一个运算符可以对应任意个数。
+
+电面2：
+Q1: Hash VS BST
+
+Q2:
+Suppose we are planning a company party.  The company organizational 
+structure is so that there is a single Owner who runs the place.
+Everyone has one direct manager, but a manager may have any number of direct
+reports.  Everyone must report to the owner, possibly indirectly.
+Each employee has associated with him a non-negative “fun” value.  What we
+want to do is invite the set of employees to make the party as fun as 
+possible.
+
+Here is the only constraint:  If you invite an employee, you cannot invite 
+that employee’s direct manager.
+   A
+B     C
+I J     D  E
+   F G H
+
+If we include A:  total fun value should Fun(A)=sum_{i=I,J,D,E}(Fun(i))
+no A:      Fun(A)={Fun(B)+Fun(C)}
+It’s legal to invite B and C
+Or it’s legal to invite D, E, A, but you cannot invite D and C, or B and A.
+
+后来复习时才注意到这是party at Hali-Bula,经典树形dp。面试时现推的树形dp，才
+拿到positive feedback。
+
+Q3:
+machine learning 101 若干题
+
+Onsite：
+1
+a) counting sort 变种
+b) 有若干个盒子，每个盒子有length和width，不考虑高度。只要尺寸fit，大盒子就
+可以放小盒子，但是一层只能套一个，即便还有空余；但可以多层嵌套。
+求最小的面积放所有的盒子
+比如 7*7  5*5, 4*6, 3*3
+
+答案是7*7+4*6
+
+2什么时候 java memory leak:   吓唬了我很久，给了一个得是多年互联网架构从业经
+验的答案。
+Given a single list
+A->B->C->E….->Z   A is Node type, B is Node Type
+Node[] result = compute()….
+
+Node {
+  T value;
+  Node next;
+}
+
+Find how many clusters in the array “result”   Node’s value could be 
+anything, not directly comparable， the LinkedList is the order.
+
+
+the cluster means all the Node in the cluster is consecutive in the list.
+
+for instance,
+result:   D E F J G H C
+cluster 1 c d e fg h
+cluster 2 j
+
+
+3 
+n x n parcels in city; matrix M contains the cost of each parcel; budget B
+largest rectangular area in the city you can afford.
+
+
+4
+在social network中，如何推荐陌生人中和自己共同好友最多的人。不用想歪了，直接
+要求用mapreduce解，完全是考这个经典算法的trick。
+
+
+5  
+a) you have a Queue array, Queue<Integer>[] queues，get the shortest length 
+queue,返回的是queue的index。pop is expensive.这个queue是动态更新的，肯定不能
+直接size();  
+
+b) find the queue with min sum queue, all with non-negative numbers. 
+
+剰20分钟不到时，狗血follow-up:   implement a heap from scratch, all member 
+functions
+写出来后，面试官居然不知道先fill了然后建heap是O(n)，给他解释了半天。
+让我瞬间想起了ak47关于代码量训练的经典文章。
+
 
  电话面试45分钟，上来问了一下简历和project，然后两道coding.
 
