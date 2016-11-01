@@ -1,0 +1,280 @@
+这两天收到打车app，租房app，某all in one hr平台的口头offer，package细节下周
+能出来，这周末提前好好考虑下。
+另外手里还有个fb的offer保底。
+
+板上大牛们帮分析下，现在去哪家还能有点汤喝？
+
+---
+10/28 update
+准备卖身去打车公司当司机了，要去的组我非常喜欢，感觉能学到很多东西。
+其实租房网也很不错，我其实纠结了很久。他们家去了之后基本可以随便去喜欢的组，
+做喜欢的事情，这点很给力。至于车间的装修多么的好，我就不用说了，大家随便搜搜
+图片就可以看出来。
+但是综合来看，最后还是选择去当司机。主要是以下几点原因：
+
+1. 要去的组业务多，公司貌似很重视。我觉得很能锻炼人，这个对new grads来说比什
+么都重要。
+2. 要去的组同胞多，甚至基本都是同胞。我觉得在美国，真正最后能帮上忙称之为人
+脉的，永远只能是同胞。
+3. 未来的manager是标准的德艺双馨，我打听了很多人，都说口碑很好。我觉得找工作
+跟找phd有些许相似的地方，公司本身未必那么的重要，去哪个组以及你的老板怎么样
+，有时候能直接决定你的career path。
+4. Package不错，厂子我觉得有前景，应该能小赚点装修钱。即使争议不小也绝对值得
+一干。
+
+下面是承诺的面经和package。非常感谢板上大牛的帮忙内推！！
+
+==================
+
+Package (ms new grads)
+租房网：拾贰万基本劳动费, 壹万签字费，伍仟挪窝费，价值约贰拾万的臀票。
+人力资源平台：拾叁万基本劳动费, 壹万签字费，扣掉买入价后约价值拾万的赌票。
+打车网：就不说具体数字了，基本劳动飞比租房网和人力资源平台都低，没有签字费，
+臀票不错，业务表现奖金很给力。
+
+
+==================
+
+租房网面经
+
+电面：
+给一组不重复的字符串，找到连接后能回文的字符串pair。
+比如输入是["gab", "cat", "bag", "alpha", "race", "car"] 返回[["gab", "bag"],
+["bag", "gab"], ["race", "car"]]
+这题不难但是没做过的话不太容易一次性做对，多思考一些test case。
+
+onsite：
+1. Culture fit
+2. Culture fit
+
+3. Coding轮，这题之前没见过，描述比较长但是不难。
+给定一个固定的表比如：
+             (right)
+           __A__B___C_
+        A |  B  AC  A
+(left)  B |  C  A   C
+        C |  B  C   A
+
+这个表就意思是两个字母的组合的下一个结果。比如AC组合，结果查表可得出是A。
+如果是BC组合，查表是AB，则说明结果可以是A或者B。
+
+有了这个表，我们可以决定一个字符串如何往下推演直到只有一个字母。
+比如给一个字符串"AC"，很明显，推演结果直接就是"A"。
+比如字符串"ABCC"，第一轮我们每两个字母查表一次得出下一个字母。因为有的表中内
+容是有多个字母，也就是有多个可能，所以整个推演结构会有不同的结果。
+拿ABCC举例，结果如下（从下往上看）：
+   A
+  A B
+A C A
+A B C C 或者
+
+   C
+  A B
+C C A
+A B C C 等等。
+
+现在要求给一个这样的表，一个初始字符串和终止结果（字母），要求反悔有没有可能
+从初始字符串推到给定的终止结果。
+比如ABCC, A。则返回true
+AC, B。则返回false。
+
+followup是如何优化。
+
+4. Text justification。输入是一长串字符串 需要自己split成单独的单词。
+follow up是修改现有的代码让多余的空格从右到左排。举例，max length是10：
+正常应该是"A  b cd ef"
+从右到左的话则应该是"A b cd  ef"
+
+5. 给一组meetings（每个meeting由start和end时间组成）。求出在所有输入meeting
+时间段内没有会议，也就是空闲的时间段。
+举例：
+[
+  [[1, 3], [6, 7]],
+  [[2, 4]],
+  [[2, 3], [9, 12]]
+]
+返回
+[[4, 6], [7, 9]]
+
+总结：租房网的题都不难，但是对做题要求比较高，需要在他们的mac上code。
+期望是尽可能快点bugfree写出来并且运行通过他们的test case。
+此外基本上每一题都需要给出详细的复杂度分析，尤其是递归题，当时推复杂度写了一
+黑板。
+
+----------------------------------------
+
+打车公司面经：
+准备签了就不说那么详细了。
+电面
+1. leetcode高频题
+2. leetcode高频题稍微一点点变种
+
+onsite
+1. leetcode高频题，有一点followup
+
+2. 
+先面了20分钟简历，然后一道高频System design，但是内容很偏，完全没准备上，答
+得很烂很被动。感觉整个设计过程感觉不太关注分布式方面的，更多的是考察如何建模。
+
+3. leetcode高频题，各种优化相关的follow up
+
+4. Manager聊天
+
+总结：也是要带自己电脑，写代码要运行，但是对复杂度分析要求不高，我全程没有问
+这个。
+它们家design挺难，但是因为我是new grads可能要求不是太高。
+
+----------------------------------------
+人力资源平台面经：
+OA
+第三套OA，网上很容易搜到。一题类似word ladder，一题是n皇后变种
+
+电面
+1. Number to excel letter
+2. Median of two sorted array
+
+onsite
+1. OOD设计，如何设计一个parking system。
+要求有两种车位，一个是随来随走的public area，一个是需要预定的reversed only 
+area。
+对于public车位，如果满了需要安排排队。
+对于reserved车位，如果满了则可以退化到public车位去。
+整轮都在白板画图，不需要写代码。
+
+2. leetcode Generate Parentheses变种。
+输入是一个>0的整数n，要求输出n个配对且合法且正确缩进的if endif组合
+
+比如n=1的时候，输出：
+if
+endif
+
+n=2的时候，输出：
+if
+endif
+if
+endif
+
+if
+  if
+  endif
+endif
+
+3. 给一组字符串代表公司的组织结构。
+每一行的字符串是三个，分别代表员工姓名，上司姓名，其他信息。对于ceo，他的上
+司则是他自己。
+比如:
+Jim, John, JimInfo
+John, Johm, JohnInfo
+Jack, Jim, JackInfo
+Steve, Jim, SteveInfo
+Tim, Jack, TimInfo
+保证没有环。
+
+输入是一个人的名字，要求打印出此人以下的组织架构图，上下级关系用锁进来表现。
+比如输入Jim，则这样打印：
+Jim, JimInfo
+  Jack, JackInfo
+    Tim, TimInfo
+  Steve, SteveInfo
+
+很简单的dfs就好。
+
+4. Manager聊天轮
+
+总结：它们家面经很难，但是我这次题都很简单，应该是运气比较好或者最近bar降低
+了。
+跟a和u一样，coding轮都需要带电脑运行通过。
+
+
+==================
+
+
+下面是几个最近被朋友们问到的比较多的问题。我把我的回答分享给大家。不一定正确
+，仅供参考，权当抛砖引玉了。
+
+* Q1. 这些hot startup面试比较看重什么，是不是纯刷题就可以？
+
+A: 就我的感觉，startup非常看重文化是否match，而不仅仅是刷题考算法。尤其是
+airbnb，有两轮core values的面试，非常重要。我觉得面试之前之前，至少要做到深
+入了解公司产品，对公司文化精确把握。面试的时候一定要对公司前景有足够信心，言
+语之间充满激情。
+
+
+* Q2. System design考的多吗？new grads没什么经验，有没有什么书可以推荐的？
+
+A: 因为我是new grads，实际上我没有考到太多design。airbnb完全没考design，uber
+考了一题design但是我答的很烂，zenefits考了oo design没考分布式system design。
+
+准备的话，基本上都在看这个github
+https://github.com/checkcheckzz/system-design-interview
+然后是sideshare里面不同系统的架构slides。
+最后读了两本书，可以推荐一下：
+
+1. big data principles and best practices of scalable realtime data systems
+twitter大神写的，深入浅出，没有相关背景也很好懂，看完对整个分布式架构都会有
+一个很完整的印象。整个书大概就是用一个完整的例子走一遍整个设计流程，理论和实
+现都有讲。值得一口气读完的好书，强推。
+这本书更多的是一个理论的讲解，或者说就是推销作者的lambda architecture。所以
+技术细节很多都是一带而过，所以作者也说了，这书不是technology survey。
+
+2. 大数据日知录
+这个是用代购平台从国内买的，算是国内技术书里面非常靠谱的了。跟上面那本书不太
+一样，这本书更多的是罗列了分布式系统中不同的技术和算法，然后对常见的都进行讲
+解，包括优缺点，对比，不同因素的权衡等。比如fb的haystack和tao，google的几大
+神器，linkedin的kafka等等等等，都有详细的描述。
+这本书就可以称之为technology suervey了，我是跟上面那本一起读的，优势互补。
+
+
+* Q3. 既然Uber基本一定会考system design, 如何针对性准备，有没有可以分享的资
+源？
+
+A: Uber的几个高频design题最好针对性准备一下。如果有时间的话，尽可能深入：
+design uber, design netflix, design instagram, design spotify。这几题有很多
+是相同的部分，
+
+比如说design uber会有很多关于如何dispatch driver(重点)，如何处理data center
+的fail等等。
+design netflix可能会提到你说的cdn，还有upload，encode之类的问题。
+design spotify跟netflix类似，但是有可能会问如何存playlist。不同设备上
+playlist更新怎么merge，如何处理conflict等等。以及如何做歌曲的推荐。
+
+以下是我觉得挺有用的链接：
+
+1. design uber: 
+这几个链接看完会对他们的架构有一个更深入的认识。
+http://www.infoq.com/presentations/uber-market-platform
+http://highscalability.com/blog/2015/9/14/how-uber-scales-their-real-time-market-platform.html
+http://www.infoq.com/news/2015/03/uber-realtime-market-platform
+http://www.open-open.com/lib/view/open1437574144178.html
+
+此外，Uber有一个application sharding组件，叫做ringpop。强烈建议把这个看一下。
+https://www.youtube.com/watch?v=OQyqJWQHp3g
+ringpop是基于SWIM gossip协议的一套consistant hashing的组件。也有大量概念和设
+计都是借鉴的dynamo。
+如果时间充足，强烈建议看一下Amazon的这篇业内非常有名的dynamo paper，ringpop
+基本上就是山寨的这个东西。
+http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf
+
+2. design netflix:
+http://techblog.netflix.com/ 这里面很多有用的。
+注意netflix用了很多aws的东西，也是cassandra的重度用户。可以看一下cassandra的
+实现机制，以及与hdfs/dynamo的异同。
+
+3. design spotify
+看完这几个链接我觉得就足够了
+http://www.slideshare.net/protocol7/spotify-architecture-pressing-play?qid=aa0c970c-7dd8-4cf9-9e8c-643c068edb92&v=qf1&b=&from_search=1
+http://www.slideshare.net/davidpoblador/spotify-bcn2013slideshare?related=1
+http://www.slideshare.net/AdamKawa/big-data-at-spotify?related=2
+http://www.slideshare.net/AdamKawa/hadoop-adventures-at-spotify-strata-conference-hadoop-world-2013?related=3
+http://www.slideshare.net/dj4b1n/data-at-spotify?related=4
+http://www.slideshare.net/JimmyMrdell/playlists-at-spotify-cassandra-summit-london-2013
+最后一个链接挺重要，是讲他们如何设计和存储playlist的。有一个面经问到了如何对
+playlist做版本管理，这个slides有详细的解释。
+另外值得注意的是，除了cdn，spotify在不同user之间也有p2p的互相通信以降低服务
+器负载。这个上面的slides有讲到。
+
+===========
+
+希望这些东西能帮到大家。尤其是new grads们，今年形势不好，希望都能团结起来互
+相帮助。
+还有其他问题我能帮上忙的可以站内信给我。谢谢！
